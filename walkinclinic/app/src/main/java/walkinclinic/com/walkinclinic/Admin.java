@@ -2,8 +2,8 @@ package walkinclinic.com.walkinclinic;
 
 public class Admin extends Person {
 
-    public Admin (String role, String name)
+    public Admin (String email, String password, String name)
     {
-        super(role, name);
+        super(email, password, name);
     }
 }

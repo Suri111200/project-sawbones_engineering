@@ -1,22 +1,24 @@
 package walkinclinic.com.walkinclinic;
 
 public class Person {
-    private String role;
+    private String email;
+    private String password;
     private String name;
 
-    public Person (String role, String name)
+    public Person (String email, String password, String name)
     {
-        this.role = role;
+        this.email = email;
+        this.password = password;
         this.name = name;
-    }
-
-    public String getRole()
-    {
-        return this.role;
     }
 
     public String getName()
     {
         return this.name;
+    }
+
+    public String getEmail()
+    {
+        return this.email;
     }
 }
