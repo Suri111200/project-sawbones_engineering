@@ -2,7 +2,6 @@ package walkinclinic.com.walkinclinic;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
@@ -12,18 +11,17 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+public class SignIn extends AppCompatActivity {
 
-public class Register extends AppCompatActivity {
-
-    Button registerButton;
+    Button signinButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_sign_in);
 
-        registerButton = (Button) findViewById(R.id.registerb);
-        registerButton.setOnClickListener(new View.OnClickListener() {
+        signinButton = (Button) findViewById(R.id.signinb);
+        signinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openWelcome();
@@ -33,8 +31,8 @@ public class Register extends AppCompatActivity {
 
     public void showPassword (View view)
     {
-        EditText password = (EditText) findViewById(R.id.passwordRegister);
-        CheckBox checkbox = (CheckBox) findViewById(R.id.checkboxRegister);
+        EditText password = (EditText) findViewById(R.id.passwordSignIn);
+        CheckBox checkbox = (CheckBox) findViewById(R.id.checkboxSignIn);
 
         if (checkbox.isChecked()) {
             // show password
@@ -50,9 +48,4 @@ public class Register extends AppCompatActivity {
         Intent toWelcome = new Intent(this, Welcome.class);
         startActivity(toWelcome);
     }
-
-
-
-
-
 }
