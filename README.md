@@ -6,4 +6,4 @@
 | --- | --- |
 | Hrithik Shah | 300069290 |
 | Soorya Saravanapavan | 300065226 |
-| Sultan | 2128439 |
+| Sultan Oloyede | 300076997 |
