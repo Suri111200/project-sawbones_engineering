@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void  openRegister ()
+    public void openRegister ()
     {
         Intent toRegister = new Intent(this, Register.class);
         startActivity(toRegister);
