@@ -29,8 +29,11 @@ The features that should be available to each type of user are given below. Note
 
 ### The walk in clinic employee can:
 1. Create an account for the walk in clinic
-2. Select services provided and the rate for each service
+2. Select services provided and the role of person performing the service
 3. Enter the working hours of the walk in clinic
+
+* Note that #2 originally stated "rate for each service", and that is acceptable as well.
+
 
 ### The patient can:
 1. Create an account
@@ -42,6 +45,11 @@ The features that should be available to each type of user are given below. Note
 1. Show the expected waiting times for walk in clinics based on the number of patients waiting to be seen (assume a fixed time of 15 minutes per patient)
 2. Show the rating that each walk in clinic has
 3. Show the admin account all registered users to allow him/her to delete user accounts
+
+
+**Note**: It is up to your team to decide how to manage clinics. This can be managed solely from administrators.  Or, a clinic employee
+can create a _new_ clinic if they do not find their walk in clinic.
+
 
 **Note**: This course does not focus on interface design; hence, we do not focus on usability aspects. However, students are welcome to “beautify” their projects, should they be comfortable with user interface design. Consider the Android Design Guidelines when designing
 your application. This topic will be covered in a tutorial session and detailed information is available at: https://developer.android.com/design/index.html
@@ -88,13 +96,13 @@ TAs during the last week of labs / tutorials.
 
 Click on the deliverable name for more details.
 
-| # | Deliverable | Weight | Due Date |
-| --- | --- | --- | --- |
-| 1 | [Github repository and user accounts](/docs/deliverable01.md) | 3% | Oct 20 |
-| 2 | Admin functionality | 3% | Nov 10 |
-| 3 | Walk-in employee user functionality | 3% | Nov 20 |
-| 4 | Patient and application functionality | 9% | Dec 04 |
-| 5 | Demo (during labs / tutorials) | 2% | Last week |
+| # | Deliverable | Mark | Weight | Due Date |
+| --- | --- | --- | --- | --- |
+| 1 | [Github repository and user accounts](/docs/deliverable01.md) | 100 | 3% | Oct 20 |
+| 2 | [Admin functionality](/docs/deliverable02.md) | 100 | 3% | Nov 10 |
+| 3 | [Walk-in employee user functionality](/docs/deliverable03.md) | 100 | 3% | Nov 20 |
+| 4 | [Patient and application functionality](/docs/deliverable04.md) | 130 | 9% | Dec 04 |
+| 5 | [Demo (during labs / tutorials)](/docs/deliverable05.md) | 100 | 2% | Last week |
 
 The project is to be carried out throughout the session and students are
 strongly encouraged to maintain a log of their project activities,
