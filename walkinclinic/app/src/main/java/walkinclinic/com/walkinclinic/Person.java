@@ -1,6 +1,8 @@
 package walkinclinic.com.walkinclinic;
 
-public class Person {
+import java.io.Serializable;
+
+public class Person implements Serializable {
     private String id;
     private String email;
     private String password;
