@@ -63,7 +63,7 @@ public class Register extends AppCompatActivity {
                 String password1 =  password1B.getText().toString();
                 byte[] hash1 = digest.digest(password1.getBytes(StandardCharsets.UTF_8));
                 String password = new String(hash1);
-                Toast.makeText(Register.this, password, Toast.LENGTH_LONG).show();
+                //Toast.makeText(Register.this, password, Toast.LENGTH_LONG).show();
                 EditText password2B = findViewById(R.id.password2Register);
                 String password2 =  password2B.getText().toString();
                 EditText nameB = findViewById(R.id.name);
@@ -117,21 +117,23 @@ public class Register extends AppCompatActivity {
     public void  registerUser (String name, String email, String password)
     {
         Intent toWelcome = new Intent(this, Welcome.class);
-
+        String id = mDatabase.push().getKey();
         if (type.equals("Admin")) {
-//            Person user = new Admin(email, password, name);
-//            mDatabase.child("Admin").push().setValue(user);
+            Person user = new Admin(id, email, password, name);
+            mDatabase.child("Person").child("Admin").child(id).setValue(user);
             Toast.makeText(Register.this, "Admin account already created.", Toast.LENGTH_LONG).show();
         }
         else if (type.equals("Patient"))
         {
-            Person user = new Patient(email, password, name);
-            mDatabase.child("Patient").push().setValue(user);
+            Person user = new Patient(id, email, password, name);
+            mDatabase.child("Person").child("Patient").child(id).setValue(user);
+            Toast.makeText(Register.this, "Patient account created", Toast.LENGTH_LONG).show();
         }
         else if (type.equals("Employee"))
         {
-            Person user = new Employee(email, password, name);
-            mDatabase.child("Employee").push().setValue(user);
+            Person user = new Employee(id, email, password, name);
+            mDatabase.child("Person").child("Employee").child(id).setValue(user);
+            //Toast.makeText(Register.this, "Employee account created", Toast.LENGTH_LONG).show();
         }
 
         toWelcome.putExtra("name", name);
