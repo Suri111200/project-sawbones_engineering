@@ -16,7 +16,7 @@ jobs:
  #        command: sudo chmod +x ./gradlew
       - run:
           name: Download Dependencies
-          command: cd walkinclinic; ./gradlew androidDependencies
+          command: ./gradlew androidDependencies
       - save_cache:
           paths:
             - ~/.gradle
