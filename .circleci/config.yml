@@ -8,7 +8,7 @@ jobs:
       JVM_OPTS: -Xmx3200m
     steps:
       - checkout:
-          path: ~/projects-sawbones_engineering
+          path: ~/projects-sawbones_engineering/walkinclinic
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
@@ -16,7 +16,7 @@ jobs:
           command: sudo chmod +x ./gradlew
       - run:
           name: Download Dependencies
-          command: ./gradlew androidDependencies
+          command: cd walkinclinic; ./gradlew androidDependencies
       - save_cache:
           paths:
             - ~/.gradle
