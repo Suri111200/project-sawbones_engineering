@@ -18,7 +18,7 @@ jobs:
           command: sudo chmod +x ./gradlew
       - run:
           name: Download Dependencies
-          working_directory: ~/project-sawbones_engineering/walkinclini
+          working_directory: ~/project-sawbones_engineering/walkinclinic
           command: ./gradlew androidDependencies
       - save_cache:
           paths:
