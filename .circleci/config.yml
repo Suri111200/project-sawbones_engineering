@@ -9,7 +9,7 @@ jobs:
     steps:
       - checkout:
           path: ~/projects-sawbones_engineering
-       - run: ls -la
+      - run: ls -la
       - run:
           name: Chmod permissions #if permission for Gradlew Dependencies fail, use this. 
           command: chmod +x ./gradlew
