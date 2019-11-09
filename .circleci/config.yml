@@ -9,6 +9,7 @@ jobs:
     steps:
       - checkout:
           path: ~/projects-sawbones_engineering
+      - run: gradle wrapper
       - run: ls -la
       - run:
           name: Chmod permissions #if permission for Gradlew Dependencies fail, use this. 
