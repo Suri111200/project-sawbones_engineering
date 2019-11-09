@@ -13,9 +13,9 @@ jobs:
           paths:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-      - run:
-          name: Chmod permissions #if permission for Gradlew Dependencies fail, use this. 
-          command: sudo chmod +x ./gradlew
+ #     - run:
+ #         name: Chmod permissions #if permission for Gradlew Dependencies fail, use this. 
+ #         command: sudo chmod +x ./gradlew
       - run:
           name: Download Dependencies
           working_directory: ~/project-sawbones_engineering/walkinclinic
