@@ -9,7 +9,7 @@
 | Sultan Oloyede | 300076997 |
 | Dylan Boyling | 7889895 |
 
-[![Build Status](https://circleci.com/gh/professor-forward/project-sawbones_engineering.png?branch=circleci)](https://circle ci.com/gh/professor-forward/project-sawbones_engineering)
+[![CircleCI](https://circleci.com/gh/professor-forward/project-sawbones_engineering.svg?style=svg&circle-token=3e2bea451884276e8faa82ed09ca5e7628290049)](https://circleci.com/gh/professor-forward/project-sawbones_engineering)
 
 # How to Sign in as Admin
 
