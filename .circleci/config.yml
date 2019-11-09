@@ -1,14 +1,17 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/project-sawbones_engineering/walkinclinic
     docker:
       - image: circleci/android:api-29
+      
+    working_directory: ~/project-sawbones_engineering/walkinclinic 
+      
     environment:
       JVM_OPTS: -Xmx3200m
+      
     steps:
       - checkout:
-          path: ~/projects-sawbones_engineering
+          path: ~/project-sawbones_engineering
       - run: ls -la
       - run:
           name: Chmod permissions #if permission for Gradlew Dependencies fail, use this. 
