@@ -134,6 +134,7 @@ public class SignIn extends AppCompatActivity {
         String email2;
         String password2;
         Person user;
+        boolean signIn = false;
         boolean emailExists = false;
         for (int i = 0; i < users.size(); i++)
         {
@@ -144,16 +145,19 @@ public class SignIn extends AppCompatActivity {
             {
                 emailT.setText("");
                 passwordT.setText("");
+                errorMessage.setText("");
+                signIn = true;
                 signIn(user);
             }
             else if (email.equals(email2)) {
                 emailExists = true;
             }
+
         }
 
-        if (emailExists)
+        if (emailExists && !signIn)
             errorMessage.setText("The password you've entered is incorrect.");
-        else
+        else if (!signIn)
             errorMessage.setText("No user with the entered email exists.");
         passwordT.setText("");
     }
