@@ -1,6 +1,8 @@
 package walkinclinic.com.walkinclinic;
 
-public class Employee extends Person {
+import java.io.Serializable;
+
+public class Employee extends Person implements Serializable {
 
   public Employee (String id, String email, String password, String name)
   {
