@@ -1,0 +1,34 @@
+
+class Person
+{
+  String id;
+  String email;
+  String password;
+  String name;
+  }
+
+class Admin
+{
+  isA Person;
+    1 -- * Service;
+}
+
+class Employee
+{
+  isA Person;
+  * -- * Service;
+}
+
+class Patient
+{
+  isA Person;
+  * -- * Service;
+}
+
+class Service
+{
+  String id;
+  String name;
+  String role;
+}
+
