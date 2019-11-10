@@ -1,0 +1,37 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/android:api-29
+      
+    working_directory: ~/project-sawbones_engineering/walkinclinic 
+      
+    environment:
+      JVM_OPTS: -Xmx3200m
+      
+    steps:
+      - checkout:
+          path: ~/project-sawbones_engineering
+      - run: ls -la
+      - run:
+          name: Chmod permissions #if permission for Gradlew Dependencies fail, use this. 
+          command: chmod +x ./gradlew
+      - restore_cache:
+         # paths:
+         #   - ~/.gradle
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+      - run:
+          name: Download Dependencies
+          command: ./gradlew androidDependencies
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+#      - run:
+#          name: Run UnitTests
+#          command: ./gradlew test #this is where we run the unit tests from the command line 
+      - store_artifacts:
+          path: app/build/outputs/apk/debug
+          destination: apks/
+      - store_test_results:
+          path: app/build/test-results
