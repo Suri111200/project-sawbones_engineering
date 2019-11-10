@@ -10,11 +10,11 @@
 | Dylan Boyling | 7889895 |
 
 # Build Status:
-[![CircleCI](https://circleci.com/gh/professor-forward/project-sawbones_engineering/tree/circleci.svg?style=svg&circle-token=3e2bea451884276e8faa82ed09ca5e7628290049)](https://circleci.com/gh/professor-forward/project-sawbones_engineering/tree/circleci)
+[![CircleCI](https://circleci.com/gh/professor-forward/project-sawbones_engineering/tree/circleci.svg?style=svg&circle-token=3e2bea451884276e8faa82ed09ca5e7628290049)](https://circleci.com/gh/professor-forward/project-sawbones_engineering/tree/f/deliverable02)
 
-replace ```[BRANCH NAME HERE]``` with new branch when branch changes
+replace ```f/deliverable02``` with new branch when branch changes
 ```
-[![CircleCI](https://circleci.com/gh/professor-forward/project-sawbones_engineering/tree/[BRANCH NAME HERE].svg?style=svg&circle-token=3e2bea451884276e8faa82ed09ca5e7628290049)](https://circleci.com/gh/professor-forward/project-sawbones_engineering/tree/[BRANCH NAME HERE])
+[![CircleCI](https://circleci.com/gh/professor-forward/project-sawbones_engineering/tree/[BRANCH NAME HERE].svg?style=svg&circle-token=3e2bea451884276e8faa82ed09ca5e7628290049)](https://circleci.com/gh/professor-forward/project-sawbones_engineering/tree/f/deliverable02)
 ```
 # How to Sign in as Admin
 
