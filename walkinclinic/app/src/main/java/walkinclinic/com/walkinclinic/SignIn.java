@@ -68,7 +68,7 @@ public class SignIn extends AppCompatActivity {
                 String prePassword = passwordT.getText().toString();
                 byte[] hash1 = digest.digest(prePassword.getBytes(StandardCharsets.UTF_8));
                 String password = new String(hash1);
-                if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
+                if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(prePassword)) {
                     verify(email, password);
                 }
                 else
