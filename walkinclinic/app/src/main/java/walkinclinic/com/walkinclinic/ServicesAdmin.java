@@ -181,7 +181,6 @@ public class ServicesAdmin extends AppCompatActivity {
 
             mDatabase.child(id).setValue(service);
 
-
             Toast.makeText(this, "Service added", Toast.LENGTH_LONG).show();
         }
         else
