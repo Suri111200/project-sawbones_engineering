@@ -68,19 +68,19 @@ public class SignInTest {
     }
 
 
-    @Test
-    public void onCreate() {
-    }
-
-    @Test
-    public void showPassword() {
-    }
-
-    @Test
-    public void verify() {
-    }
-
-    @Test
-    public void signIn() {
-    }
+//    @Test
+//    public void onCreate() {
+//    }
+//
+//    @Test
+//    public void showPassword() {
+//    }
+//
+//    @Test
+//    public void verify() {
+//    }
+//
+//    @Test
+//    public void signIn() {
+//    }
 }

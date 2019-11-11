@@ -1,5 +1,6 @@
 package walkinclinic.com.walkinclinic;
 
+import android.content.Intent;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -39,8 +40,9 @@ public class WelcomeTest {
          */
 
 
-        /**
-        user = new Patient("2","joe123@uottawa.ca","password123", "Joe");
+
+        Intent intent = myActivity.getIntent();
+        user =(Person) intent.getSerializableExtra("Person");
         buttonToService = myActivity.findViewById(R.id.toServices);
         one = myActivity.findViewById(R.id.textView);
         two = myActivity.findViewById(R.id.textView2);
@@ -48,7 +50,7 @@ public class WelcomeTest {
         //verify display messages
         assertEquals("Welcome " + user.getName() + "!",one.getText().toString());
         assertEquals("You are logged-in as " + user.getClass().getSimpleName() + ".",two.getText().toString());
-        */
+
     }
 
     @After
