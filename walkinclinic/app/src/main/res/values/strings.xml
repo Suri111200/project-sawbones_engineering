@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">walkinclinic</string>
+
+    <string-array name = "clinicOption">
+        <item>This is a licensed clinic</item>
+        <item>This is not a licensed clinic</item>
+    </string-array>
+
 </resources>

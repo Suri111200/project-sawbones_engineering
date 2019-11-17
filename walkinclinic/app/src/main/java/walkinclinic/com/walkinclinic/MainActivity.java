@@ -11,6 +11,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button registerButton;
     Button signinButton;
+    Button registerClinicButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,13 @@ public class MainActivity extends AppCompatActivity {
                 openSignin();
             }
         });
+        registerClinicButton = (Button) findViewById(R.id.registerClinic);
+        registerClinicButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                openRegisterClinic();
+            }
+        });
 
     }
 
@@ -44,5 +52,11 @@ public class MainActivity extends AppCompatActivity {
     {
         Intent toSignIn = new Intent (this, SignIn.class);
         startActivity(toSignIn);
+    }
+
+    public void openRegisterClinic()
+    {
+        Intent toRegisterClinic = new Intent(this, RegisterClinic.class);
+        startActivity(toRegisterClinic);
     }
 }
