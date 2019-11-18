@@ -146,7 +146,7 @@ public class Register extends AppCompatActivity {
 
     public void  registerUser (String name, String email, String password)
     {
-        Intent toWelcome = new Intent(this, Welcome.class);
+        //Intent toWelcome = new Intent(this, Welcome.class);
         String id = mDatabase.push().getKey();
         Person user = new Person("h", "h", "h", "h");
         if (type.equals("Admin")) {
@@ -159,16 +159,22 @@ public class Register extends AppCompatActivity {
             user = new Patient(id, email, password, name);
             mDatabase.child("Person").child("Patient").child(id).setValue(user);
             Toast.makeText(Register.this, "Patient account created", Toast.LENGTH_LONG).show();
+            Intent toWelcome = new Intent(this, Welcome.class);
+            toWelcome.putExtra("Person", user);
+            startActivity(toWelcome);
         }
         else
         {
             user = new Employee(id, email, password, name);
             mDatabase.child("Person").child("Employee").child(id).setValue(user);
             Toast.makeText(Register.this, "Employee account created", Toast.LENGTH_LONG).show();
+            Intent toClinic = new Intent(this, ChooseClinic.class);
+            toClinic.putExtra("Person", user);
+            startActivity(toClinic);
         }
 
-        toWelcome.putExtra("Person", user);
-        startActivity(toWelcome);
+        //toWelcome.putExtra("Person", user);
+        //startActivity(toWelcome);
     }
 
     public void changeType (View v, String type)

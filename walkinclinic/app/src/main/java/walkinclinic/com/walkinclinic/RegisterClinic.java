@@ -62,7 +62,7 @@ public class RegisterClinic extends AppCompatActivity {
         phoneNumberB = findViewById(R.id.phoneClinic);
         descriptionB= findViewById(R.id.descriptionClinic);
 
-        registerClinic = (Button) findViewById(R.id.registerb);
+        registerClinic = (Button) findViewById(R.id.registerClinicButton);
         registerClinic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
