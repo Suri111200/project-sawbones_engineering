@@ -166,6 +166,21 @@ public class SignIn extends AppCompatActivity {
     {
         Intent toWelcome = new Intent(this, Welcome.class);
 
+        if(user instanceof Admin){
+            //idk, does some admin shit
+            //this is just placeholder but this should be whatever the admin sees
+            //when they log into the app
+            toWelcome.putExtra("Person", user);
+            startActivity(toWelcome);
+        }
+        else if(user instanceof Employee){
+            //TODO Since an employee either joins a clinic or creates a clinic when they register,
+            // they should be brought to the Clinic management menu where they can
+            // 1) Can specify their own availabilities 2) Can see the list of their own availability times.
+            // 3) Add/Delete services to their profile (only admin manages the overall service list)
+        }
+
+
         toWelcome.putExtra("Person", user);
         startActivity(toWelcome);
     }

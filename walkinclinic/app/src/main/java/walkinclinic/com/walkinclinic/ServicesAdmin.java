@@ -173,18 +173,14 @@ public class ServicesAdmin extends AppCompatActivity {
 
     private void addService(String name, String role) {
 
-        if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(role))
-        {
+        if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(role)){
             String id = mDatabase.push().getKey();
-
             Service service = new Service (id, name, role);
-
             mDatabase.child(id).setValue(service);
 
             Toast.makeText(this, "Service added", Toast.LENGTH_LONG).show();
         }
-        else
-        {
+        else{
             Toast.makeText(this, "Please enter a name and a role", Toast.LENGTH_LONG).show();
         }
     }

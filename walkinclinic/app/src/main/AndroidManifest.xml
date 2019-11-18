@@ -18,6 +18,8 @@
         <activity android:name=".Register" />
         <activity android:name=".ChooseClinic"/>
         <activity android:name=".RegisterClinic"/>
+        <activity android:name=".ClinicJoin"/>
+        <activity android:name=".ClinicList"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

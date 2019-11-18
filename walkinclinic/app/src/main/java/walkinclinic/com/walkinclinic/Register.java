@@ -199,11 +199,5 @@ public class Register extends AppCompatActivity {
             patient.getBackground().clearColorFilter();
             admin.getBackground().clearColorFilter();
         }
-
-
     }
-
-
-
-
 }
