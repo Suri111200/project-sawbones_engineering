@@ -25,16 +25,16 @@ import java.util.Map;
 public class Welcome extends AppCompatActivity {
 
     Person user;
-    Button buttonToService;
+    //Button buttonToService;
+    Button buttonToProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Person").child("Patient");
-
-        buttonToService = (Button) findViewById(R.id.toServices);
+       // buttonToService = (Button) findViewById(R.id.toServices);
+        buttonToProfile = findViewById(R.id.toProfile);
 
         //ref.orderByChild("name").endAt(5).toString();
 
@@ -47,28 +47,50 @@ public class Welcome extends AppCompatActivity {
         one.setText(display1);
         two.setText(display2);
 
-        //one.setText((ref.orderByChild("name").endAt(5).toString()));
+//        buttonToService.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                toServices();
+//            }
+//        });
 
-        buttonToService.setOnClickListener(new View.OnClickListener() {
+        buttonToProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toServices();
+                toProfile();
             }
         });
 
     }
 
-    public void toServices ()
+//    public void toServices ()
+//    {
+//        //Toast.makeText(Welcome.this, user.getClass().getSimpleName(), Toast.LENGTH_LONG).show();
+//        Intent toServices = new Intent(this, ServicesBasic.class);
+//        if (user.getClass().getSimpleName().equals("Admin")) {
+//            //Toast.makeText(Welcome.this, "yay", Toast.LENGTH_LONG).show();
+//            toServices = new Intent(this, ServicesAdmin.class);
+//        }
+//
+//        toServices.putExtra("Person", user);
+//        startActivity(toServices);
+//    }
+
+    public void toProfile ()
     {
         //Toast.makeText(Welcome.this, user.getClass().getSimpleName(), Toast.LENGTH_LONG).show();
-        Intent toServices = new Intent(this, ServicesBasic.class);
+        Intent toProfile = new Intent(this, ProfileBasic.class);
         if (user.getClass().getSimpleName().equals("Admin")) {
             //Toast.makeText(Welcome.this, "yay", Toast.LENGTH_LONG).show();
-            toServices = new Intent(this, ServicesAdmin.class);
+            toProfile = new Intent(this, ProfileAdmin.class);
+        }
+        else if (user.getClass().getSimpleName().equals("ServiceProvider"))
+        {
+            toProfile = new Intent(this, ProfileServiceProvider.class);
         }
 
-        //toWelcome.putExtra("Person", user);
-        startActivity(toServices);
+        toProfile.putExtra("Person", user);
+        startActivity(toProfile);
     }
 
 }

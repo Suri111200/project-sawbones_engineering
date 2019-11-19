@@ -11,7 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ServiceProviderRegister"></activity>
+        <activity android:name=".ServicesSP"></activity>
+        <activity android:name=".ProfileServiceProvider" />
+        <activity android:name=".ProfileAdmin" />
+        <activity android:name=".ProfileBasic" />
+        <activity android:name=".ServiceProviderRegister" />
         <activity android:name=".ServicesBasic" />
         <activity android:name=".ServicesAdmin" />
         <activity android:name=".Welcome" />

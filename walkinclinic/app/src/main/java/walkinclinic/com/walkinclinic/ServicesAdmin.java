@@ -39,7 +39,7 @@ public class ServicesAdmin extends AppCompatActivity {
         setContentView(R.layout.activity_services_admin);
 
         addService = (Button) findViewById(R.id.addService);
-        listViewProducts = (ListView) findViewById(R.id.servicesList);
+        listViewProducts = (ListView) findViewById(R.id.ConstraintLayout);
 
         services = new ArrayList<>();
 

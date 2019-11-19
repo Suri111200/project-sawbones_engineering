@@ -1,16 +1,22 @@
 package walkinclinic.com.walkinclinic;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 
-public class ServiceProvider extends Person implements Serializable {
+public class  ServiceProvider extends Person implements Serializable {
 
     String address; //mandatory
     String phoneNumber; //mandatory
     String company; //mandatory
     String description;
     boolean licensed;
+    List<Service> services;
+    List<Availibility> availibilities;
 
     public ServiceProvider (String id, String email, String password, String name, String address, String phoneNumber, String company, String description, boolean licensed)
     {
@@ -20,6 +26,8 @@ public class ServiceProvider extends Person implements Serializable {
         this.company = company;
         this.description = description;
         this.licensed = licensed;
+        services = new ArrayList<>();
+        availibilities = new ArrayList<>();;
     }
 
     public String getAddress() {
@@ -36,6 +44,14 @@ public class ServiceProvider extends Person implements Serializable {
 
     public boolean getLicensed() {
         return licensed;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public List<Service> getServices() {
+        return services;
     }
 
     public void setAddress(String address) {
@@ -56,5 +72,9 @@ public class ServiceProvider extends Person implements Serializable {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public void setServices(List<Service> services) {
+        this.services = services;
     }
 }
