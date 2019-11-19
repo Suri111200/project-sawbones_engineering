@@ -2,6 +2,8 @@ package walkinclinic.com.walkinclinic;
 
 import java.io.Serializable;
 
+import androidx.annotation.NonNull;
+
 public class ServiceProvider extends Person implements Serializable {
 
     String address; //mandatory
@@ -32,7 +34,27 @@ public class ServiceProvider extends Person implements Serializable {
         return description;
     }
 
-    public boolean checkLicense () {
+    public boolean getLicensed() {
         return licensed;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setLicensed(boolean licensed) {
+        this.licensed = licensed;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }
