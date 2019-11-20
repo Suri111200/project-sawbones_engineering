@@ -164,8 +164,11 @@ public class SignIn extends AppCompatActivity {
 
     public void signIn (Person user)
     {
-        Intent toWelcome = new Intent(this, Welcome.class);
-
+        Intent toWelcome;
+        if (user.getClass().getSimpleName().equals("Admin"))
+            toWelcome = new Intent(this, WelcomeAdmin.class);
+        else
+            toWelcome = new Intent(this, Welcome.class);
         toWelcome.putExtra("Person", user);
         startActivity(toWelcome);
     }
