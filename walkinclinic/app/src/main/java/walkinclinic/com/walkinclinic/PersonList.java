@@ -28,7 +28,7 @@ public class PersonList extends ArrayAdapter<Person> {
         //TextView textViewRole = (TextView) listViewItem.findViewById(R.id.textViewRole);
 
         Person person = users.get(position);
-        textViewName.setText(person.getName());
+        textViewName.setText(person.getClass().getSimpleName() + ": " + person.getName());
         //textViewRole.setText(String.valueOf(employee.getRole()));
         return listViewItem;
     }
