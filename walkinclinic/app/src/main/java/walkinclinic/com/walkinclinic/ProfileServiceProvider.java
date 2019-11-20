@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ProfileServiceProvider extends AppCompatActivity {
 
@@ -30,7 +31,7 @@ public class ProfileServiceProvider extends AppCompatActivity {
 
         nameT = findViewById(R.id.nameSPText);
         typeT = findViewById(R.id.typeSPText);
-        emailT = findViewById(R.id.emailAText);
+        emailT = findViewById(R.id.emailSPText);
         companyT = findViewById(R.id.companySPText);
         addressT = findViewById(R.id.addressSPText);
         phoneT = findViewById(R.id.phoneSPText);
@@ -42,17 +43,28 @@ public class ProfileServiceProvider extends AppCompatActivity {
         Intent intent = getIntent();
         user = (ServiceProvider) intent.getSerializableExtra("Person");
 
-        nameT.setText("Email: "+user.getName());
-        typeT.setText("Type: "+ user.getClass().getSimpleName());
-        emailT.setText("Email: "+ user.getEmail());
-        companyT.setText("Company: "+user.getCompany());
-        addressT.setText("Address: "+user.getAddress());
-        phoneT.setText("Phone Number: "+user.getPhoneNumber());
-        descT.setText("Description: "+user.getDescription());
-        if (user.getLicensed() == true)
-            licensedT.setText("Licensed");
+        String name = "Name: "+user.getName();
+        String type = "Type: "+ user.getClass().getSimpleName();
+        String email = "Email: "+ user.getEmail();
+        String company = "Company: "+user.getCompany();
+        String address = "Address: "+user.getAddress();
+        String phone = "Phone Number: "+user.getPhoneNumber();
+        String desc = "Description: "+user.getDescription();
+        String licensed;
+        if (user.getLicensed())
+            licensed = "Licensed";
         else
-            licensedT.setText("Not Licensed");
+            licensed = "Not Licensed";
+
+        //Toast.makeText(ProfileServiceProvider.this, email, Toast.LENGTH_LONG).show();
+        nameT.setText(name);
+        typeT.setText(type);
+        emailT.setText(email);
+        companyT.setText(company);
+        addressT.setText(address);
+        phoneT.setText(phone);
+        descT.setText(desc);
+        licensedT.setText(licensed);
 
         buttonToServices.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +76,7 @@ public class ProfileServiceProvider extends AppCompatActivity {
         buttonToAvail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toAvailibilities();
+                toAvailabilities();
             }
         });
 
@@ -78,10 +90,10 @@ public class ProfileServiceProvider extends AppCompatActivity {
         startActivity(toServices);
     }
 
-    public void toAvailibilities ()
+    public void toAvailabilities ()
     {
         //Toast.makeText(Welcome.this, user.getClass().getSimpleName(), Toast.LENGTH_LONG).show();
-        Intent toServices = new Intent(this, Availibilities.class);
+        Intent toServices = new Intent(this, Availabilities.class);
         toServices.putExtra("Person", user);
         startActivity(toServices);
     }

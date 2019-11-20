@@ -27,8 +27,8 @@ import java.util.List;
 public class ServicesSP extends AppCompatActivity {
 
     DatabaseReference mDatabase;
-    Button addService;
     ListView listViewProducts;
+    ListView listViewYourServices;
 
     List<Service> services;
 
@@ -46,16 +46,28 @@ public class ServicesSP extends AppCompatActivity {
         user = (ServiceProvider) intent.getSerializableExtra("Person");
 
         listViewProducts = (ListView) findViewById(R.id.servicesList);
+        listViewYourServices = findViewById(R.id.yourServicesList);
 
         services = new ArrayList<>();
 
         yourServices = new ArrayList<>();
 
+        Toast.makeText(ServicesSP.this, user.getId(), Toast.LENGTH_LONG).show();
+
         listViewProducts.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Service service = services.get(i);
-                showAddServiceSPDialog(service);
+                addService(service);
+                return true;
+            }
+        });
+
+        listViewYourServices.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Service service = yourServices.get(i);
+                deleteService(service.getId());
                 return true;
             }
         });
@@ -82,37 +94,57 @@ public class ServicesSP extends AppCompatActivity {
 
             }
         });
-    }
 
-    private void showAddServiceSPDialog(Service service) {
+        mDatabase = FirebaseDatabase.getInstance().getReference("Person").child("ServiceProvider").child(user.getId()).child("Services");
 
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.sp_services_dialog, null);
-        dialogBuilder.setView(dialogView);
-
-        final ListView listYourServices = (ListView) findViewById(R.id.yourServicesList);
-
-        listYourServices.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        // THE FOLLOWING GETS IT BUGGING OUT
+        mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                yourServices.remove(i);
-                return true;
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                yourServices.clear();
+
+                for (DataSnapshot ds: dataSnapshot.getChildren())
+                {
+                    Service service = new Service(ds.child("id").getValue().toString(), ds.child("name").getValue().toString(), ds.child("role").getValue().toString());
+                    yourServices.add(service);
+                }
+                ServiceList servicesAdapter = new ServiceList(ServicesSP.this, yourServices);
+                listViewYourServices.setAdapter(servicesAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
+    }
 
-        dialogBuilder.setTitle("Your Services");
-        final AlertDialog b = dialogBuilder.create();
-        b.show();
+    private void addService(Service service) {
 
-        yourServices.add(service);
-        user.setServices(yourServices);
+        for (int i = 0; i < yourServices.size(); i++)
+        {
+            if (yourServices.get(i).getId().equals(service.getId()))
+            {
+                Toast.makeText(ServicesSP.this, "Service already added", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+        }
+
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Person").child("ServiceProvider").child(user.getId()).setValue(user);
-
-        ServiceList yourServicesAdapter = new ServiceList(ServicesSP.this, yourServices);
-        listYourServices.setAdapter(yourServicesAdapter);
+        Toast.makeText(ServicesSP.this, user.getId(), Toast.LENGTH_LONG).show();
+        DatabaseReference dR = mDatabase.child("Person").child("ServiceProvider").child(user.getId()).child("Services");
+        dR.child(service.getId()).setValue(service);
 
     }
+
+    private boolean deleteService(String id) {
+
+        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("Person").child("ServiceProvider").child(user.getId()).child("Services").child(id);
+        dR.removeValue();
+        Toast.makeText(getApplicationContext(), "Service deleted", Toast.LENGTH_LONG).show();
+        return true;
+    }
+
 
 }

@@ -15,8 +15,6 @@ public class  ServiceProvider extends Person implements Serializable {
     String company; //mandatory
     String description;
     boolean licensed;
-    List<Service> services;
-    List<Availibility> availibilities;
 
     public ServiceProvider (String id, String email, String password, String name, String address, String phoneNumber, String company, String description, boolean licensed)
     {
@@ -26,8 +24,6 @@ public class  ServiceProvider extends Person implements Serializable {
         this.company = company;
         this.description = description;
         this.licensed = licensed;
-        services = new ArrayList<>();
-        availibilities = new ArrayList<>();;
     }
 
     public String getAddress() {
@@ -50,10 +46,6 @@ public class  ServiceProvider extends Person implements Serializable {
         return phoneNumber;
     }
 
-    public List<Service> getServices() {
-        return services;
-    }
-
     public void setAddress(String address) {
         this.address = address;
     }
@@ -72,9 +64,5 @@ public class  ServiceProvider extends Person implements Serializable {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public void setServices(List<Service> services) {
-        this.services = services;
     }
 }

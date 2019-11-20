@@ -187,18 +187,21 @@ public class Register extends AppCompatActivity {
             Toast.makeText(Register.this, "Admin account already created.", Toast.LENGTH_LONG).show();
             v.getBackground().clearColorFilter();
             this.type = "not";
+            registerButton.setText("Register");
         }
         else if (type.equals("Patient"))
         {
             employee.getBackground().clearColorFilter();
             admin.getBackground().clearColorFilter();
             serviceProvider.getBackground().clearColorFilter();
+            registerButton.setText("Register");
         }
         else if (type.equals("Employee"))
         {
             patient.getBackground().clearColorFilter();
             admin.getBackground().clearColorFilter();
             serviceProvider.getBackground().clearColorFilter();
+            registerButton.setText("Register");
         }
         else if(type.equals("ServiceProvider"))
         {

@@ -34,7 +34,7 @@ public class Welcome extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
 
        // buttonToService = (Button) findViewById(R.id.toServices);
-        buttonToProfile = findViewById(R.id.toProfile);
+        buttonToProfile = (Button) findViewById(R.id.toProfile);
 
         //ref.orderByChild("name").endAt(5).toString();
 
@@ -43,7 +43,7 @@ public class Welcome extends AppCompatActivity {
         TextView one = findViewById(R.id.textView);
         TextView two = findViewById(R.id.textView2);
         String display1 = "Welcome " + user.getName() + "!";
-        String display2 = "You are logged-in as " + user.getClass().getSimpleName() + ".";
+        String display2 = "You are logged-in as a " + user.getClass().getSimpleName() + ".";
         one.setText(display1);
         two.setText(display2);
 
@@ -53,10 +53,11 @@ public class Welcome extends AppCompatActivity {
 //                toServices();
 //            }
 //        });
-
+        //Toast.makeText(Welcome.this, user.getClass().getSimpleName(), Toast.LENGTH_LONG).show();
         buttonToProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Toast.makeText(Welcome.this, user.getClass().getSimpleName(), Toast.LENGTH_LONG).show();
                 toProfile();
             }
         });
@@ -76,21 +77,22 @@ public class Welcome extends AppCompatActivity {
 //        startActivity(toServices);
 //    }
 
-    public void toProfile ()
+    private void toProfile ()
     {
-        //Toast.makeText(Welcome.this, user.getClass().getSimpleName(), Toast.LENGTH_LONG).show();
-        Intent toProfile = new Intent(this, ProfileBasic.class);
+
+        Intent toProfileClass = new Intent(this, ProfileBasic.class);
         if (user.getClass().getSimpleName().equals("Admin")) {
             //Toast.makeText(Welcome.this, "yay", Toast.LENGTH_LONG).show();
-            toProfile = new Intent(this, ProfileAdmin.class);
+            toProfileClass = new Intent(this, ProfileAdmin.class);
         }
         else if (user.getClass().getSimpleName().equals("ServiceProvider"))
         {
-            toProfile = new Intent(this, ProfileServiceProvider.class);
+            //Toast.makeText(Welcome.this, "yay", Toast.LENGTH_LONG).show();
+            toProfileClass = new Intent(this, ProfileServiceProvider.class);
         }
 
-        toProfile.putExtra("Person", user);
-        startActivity(toProfile);
+        toProfileClass.putExtra("Person", user);
+        startActivity(toProfileClass);
     }
 
 }
