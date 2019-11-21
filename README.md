@@ -29,3 +29,5 @@ Create account using Register
 or sign in with 
 email =sp
 password = sp
+
+**It was assumed that the Service Provider is a clinic. Employee class is kept as they are employees of a clinic. May delete after**
