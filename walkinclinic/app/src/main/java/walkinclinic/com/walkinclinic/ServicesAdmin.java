@@ -123,8 +123,8 @@ public class ServicesAdmin extends AppCompatActivity {
 
         final EditText editTextName = (EditText) dialogView.findViewById(R.id.editTextName);
         final EditText editTextRole  = (EditText) dialogView.findViewById(R.id.editTextRole);
-        final Button buttonUpdate = (Button) dialogView.findViewById(R.id.buttonUpdateProduct);
-        final Button buttonDelete = (Button) dialogView.findViewById(R.id.buttonDeleteProduct);
+        final Button buttonUpdate = (Button) dialogView.findViewById(R.id.buttonDeleteProduct);
+        final Button buttonDelete = (Button) dialogView.findViewById(R.id.buttonCancelProduct);
 
         dialogBuilder.setTitle(serviceName);
         final AlertDialog b = dialogBuilder.create();

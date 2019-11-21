@@ -20,6 +20,9 @@
         <activity android:name=".ServiceProviderRegister" />
         <activity android:name=".ServicesBasic" />
         <activity android:name=".ServicesAdmin" />
+        <activity android:name=".WelcomeAdmin"/>
+        <activity android:name=".EmployeesAdmin"/>
+        <activity android:name=".PersonList"/>
         <activity android:name=".Welcome" />
         <activity android:name=".SignIn" />
         <activity android:name=".Register" />

@@ -82,7 +82,15 @@ public class ServiceProviderRegister extends AppCompatActivity {
 
                     registerUser (user);
                 }
-                else
+                else if(address.equals("")){
+                    errorMessageB.setText("Please enter an address");
+                }
+                else if(phoneNumber.equals("")){
+                    errorMessageB.setText("Please enter a phone number");
+                }
+                else if(companyName.equals("")){
+                    errorMessageB.setText("Please enter a name for the clinic");
+                }else
                     errorMessageB.setText("Make sure all fields are filled in.");
             }
         });
