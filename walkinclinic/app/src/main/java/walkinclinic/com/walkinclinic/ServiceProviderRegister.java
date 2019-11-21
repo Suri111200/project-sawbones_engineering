@@ -58,7 +58,7 @@ public class ServiceProviderRegister extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     licensed = true;
-                    Toast.makeText(ServiceProviderRegister.this, "licensed", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(ServiceProviderRegister.this, "licensed", Toast.LENGTH_LONG).show();
                 } else {
                     licensed = false;
                 }
@@ -98,9 +98,8 @@ public class ServiceProviderRegister extends AppCompatActivity {
 
     public void  registerUser (Person user) {
 
-        String id = mDatabase.push().getKey();
         Intent toWelcome = new Intent(this, Welcome.class);
-        mDatabase.child("Person").child("ServiceProvider").child(id).setValue(user);
+        mDatabase.child("Person").child("ServiceProvider").child(user.getId()).setValue(user);
         Toast.makeText(ServiceProviderRegister.this, "Service Provider account created", Toast.LENGTH_LONG).show();
         toWelcome.putExtra("Person", user);
         startActivity(toWelcome);

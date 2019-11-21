@@ -39,7 +39,7 @@ public class ServicesAdmin extends AppCompatActivity {
         setContentView(R.layout.activity_services_admin);
 
         addService = (Button) findViewById(R.id.addService);
-        listViewProducts = (ListView) findViewById(R.id.servicesList);
+        listViewProducts = (ListView) findViewById(R.id.ConstraintLayout);
 
         services = new ArrayList<>();
 
@@ -92,7 +92,7 @@ public class ServicesAdmin extends AppCompatActivity {
 
         final EditText editTextName = (EditText) dialogView.findViewById(R.id.editTextName);
         final EditText editTextRole  = (EditText) dialogView.findViewById(R.id.editTextRole);
-        final Button buttonAddService = (Button) dialogView.findViewById(R.id.finalAddService);
+        final Button buttonAddService = (Button) dialogView.findViewById(R.id.finalAddAvail);
 
         dialogBuilder.setTitle("Add Service");
         final AlertDialog b = dialogBuilder.create();

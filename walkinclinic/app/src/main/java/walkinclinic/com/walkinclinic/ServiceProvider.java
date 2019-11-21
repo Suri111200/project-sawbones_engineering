@@ -1,10 +1,14 @@
 package walkinclinic.com.walkinclinic;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 
-public class ServiceProvider extends Person implements Serializable {
+public class  ServiceProvider extends Person implements Serializable {
 
     String address; //mandatory
     String phoneNumber; //mandatory
@@ -36,6 +40,10 @@ public class ServiceProvider extends Person implements Serializable {
 
     public boolean getLicensed() {
         return licensed;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
     public void setAddress(String address) {

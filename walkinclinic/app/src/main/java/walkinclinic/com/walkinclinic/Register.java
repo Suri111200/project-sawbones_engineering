@@ -1,6 +1,5 @@
 package walkinclinic.com.walkinclinic;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 
@@ -8,7 +7,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
@@ -18,18 +16,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import org.w3c.dom.Text;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class Register extends AppCompatActivity {
@@ -70,7 +62,7 @@ public class Register extends AppCompatActivity {
         emailB = findViewById(R.id.emailRegister);
         password1B = findViewById(R.id.passwordRegister);
         password2B = findViewById(R.id.password2Register);
-        nameB = findViewById(R.id.name);
+        nameB = findViewById(R.id.nameText);
 
         registerButton = (Button) findViewById(R.id.registerb);
         registerButton.setOnClickListener(new View.OnClickListener() {
@@ -195,18 +187,21 @@ public class Register extends AppCompatActivity {
             Toast.makeText(Register.this, "Admin account already created.", Toast.LENGTH_LONG).show();
             v.getBackground().clearColorFilter();
             this.type = "not";
+            registerButton.setText("Register");
         }
         else if (type.equals("Patient"))
         {
             employee.getBackground().clearColorFilter();
             admin.getBackground().clearColorFilter();
             serviceProvider.getBackground().clearColorFilter();
+            registerButton.setText("Register");
         }
         else if (type.equals("Employee"))
         {
             patient.getBackground().clearColorFilter();
             admin.getBackground().clearColorFilter();
             serviceProvider.getBackground().clearColorFilter();
+            registerButton.setText("Register");
         }
         else if(type.equals("ServiceProvider"))
         {
