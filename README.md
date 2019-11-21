@@ -22,3 +22,10 @@ CircleCI built successfully before the JUnit testing was implemented as seen bel
 
 email = admin@uottawa.ca
 password = 5T5ptQ
+
+# How to Sign in as Service Provider
+
+Create account using Register
+or sign in with 
+email =sp
+password = sp
