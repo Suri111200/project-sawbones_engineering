@@ -3,7 +3,7 @@ package walkinclinic.com.walkinclinic;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -13,6 +13,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,7 @@ public class ServicesBasic extends AppCompatActivity {
         setContentView(R.layout.activity_services_basic);
 
        // Toast.makeText(ServicesBasic.this, "Services Basic", Toast.LENGTH_LONG).show();
-        listViewProducts = (ListView) findViewById(R.id.ConstraintLayout);
+        listViewProducts = (ListView) findViewById(R.id.servicesList);
 
         services = new ArrayList<>();
         mDatabase = FirebaseDatabase.getInstance().getReference("Service");

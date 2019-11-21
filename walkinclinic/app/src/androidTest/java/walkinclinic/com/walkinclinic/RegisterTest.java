@@ -3,14 +3,20 @@ package walkinclinic.com.walkinclinic;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.annotation.UiThreadTest;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import static org.junit.Assert.*;
 
@@ -34,7 +40,7 @@ public class RegisterTest {
     @Test
     @UiThreadTest
     public void testLaunch() {
-        name = myActivity.findViewById(R.id.nameText);
+        name = myActivity.findViewById(R.id.name);
         email = myActivity.findViewById(R.id.emailRegister);
         password = myActivity.findViewById(R.id.passwordRegister);
         password2 = myActivity.findViewById(R.id.password2Register);

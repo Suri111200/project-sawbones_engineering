@@ -105,19 +105,6 @@ public class SignIn extends AppCompatActivity {
                             String name = ds.child("name").getValue().toString();
                             users.add(new Admin(id, email, password, name));
                         }
-                        for (DataSnapshot ds : dataSnapshot.child("ServiceProvider").getChildren()) {
-                            String id = ds.child("id").getValue().toString();
-                            String email = ds.child("email").getValue().toString();
-                            String password = ds.child("password").getValue().toString();
-                            String name = ds.child("name").getValue().toString();
-                            String address = ds.child("address").getValue().toString();
-                            String company = ds.child("company").getValue().toString();
-                            String desc = ds.child("description").getValue().toString();
-                            String phone = ds.child("phoneNumber").getValue().toString();
-                            boolean licensed = (boolean) ds.child("licensed").getValue();
-                            users.add(new ServiceProvider(id, email, password, name, address, phone, company, desc, licensed));
-                        }
-
                         //Toast.makeText(SignIn.this, users.toString(), Toast.LENGTH_LONG).show();
                     }
 
