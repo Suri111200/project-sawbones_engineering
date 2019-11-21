@@ -52,7 +52,6 @@ public class ServicesSP extends AppCompatActivity {
 
         yourServices = new ArrayList<>();
 
-        Toast.makeText(ServicesSP.this, user.getId(), Toast.LENGTH_LONG).show();
 
         listViewProducts.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -132,7 +131,7 @@ public class ServicesSP extends AppCompatActivity {
         }
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        Toast.makeText(ServicesSP.this, user.getId(), Toast.LENGTH_LONG).show();
+        Toast.makeText(ServicesSP.this, "Service added.", Toast.LENGTH_LONG).show();
         DatabaseReference dR = mDatabase.child("Person").child("ServiceProvider").child(user.getId()).child("Services");
         dR.child(service.getId()).setValue(service);
 
