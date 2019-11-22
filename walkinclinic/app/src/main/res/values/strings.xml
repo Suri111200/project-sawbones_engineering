@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">walkinclinic</string>
+    <string name="leaveReview"><i>Leave a review</i></string>
 </resources>

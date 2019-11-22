@@ -35,7 +35,7 @@ public class SP_List extends ArrayAdapter<ServiceProvider> {
         //TextView textViewRole = (TextView) listViewItem.findViewById(R.id.textViewRole);
 
         ServiceProvider provider = providers.get(position);
-        //TODO: Display rating next to Service Provider's name
+        //TODO: Display rating next to Service Provider's name. Maybe clinic description too.
         textViewName.setText(provider.getCompany());
         //textViewRole.setText(String.valueOf(employee.getRole()));
         return listViewItem;

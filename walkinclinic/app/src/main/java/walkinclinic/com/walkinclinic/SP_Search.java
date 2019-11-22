@@ -48,7 +48,7 @@ public class SP_Search extends AppCompatActivity {
         listViewServiceProviders.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //Do a thing?
+                //TODO: Prompt to review? Book an appointment?
                 return true;
             }
         });
