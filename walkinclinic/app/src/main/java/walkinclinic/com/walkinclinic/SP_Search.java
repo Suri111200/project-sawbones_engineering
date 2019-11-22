@@ -102,7 +102,7 @@ public class SP_Search extends AppCompatActivity {
             public boolean onQueryTextChange(String query){
                 List<ServiceProvider> results = new ArrayList<>();
                 for(ServiceProvider i: providers){
-                    if(i.getCompany().toLowerCase().contains(query))
+                    if(i.getCompany().toLowerCase().contains(query.toLowerCase()))
                         results.add(i);
                 }
                 ((SP_List)listViewServiceProviders.getAdapter()).update(results);
