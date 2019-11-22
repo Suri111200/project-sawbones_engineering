@@ -85,14 +85,14 @@ public class EmployeesAdmin extends AppCompatActivity {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.update_dialog, null);
+        final View dialogView = inflater.inflate(R.layout.delete_dialog, null);
         dialogBuilder.setView(dialogView);
 
         final EditText editTextName = (EditText) dialogView.findViewById(R.id.editTextName);
         final Button buttonUpdate = (Button) dialogView.findViewById(R.id.buttonCancelProduct);
         final Button buttonDelete = (Button) dialogView.findViewById(R.id.buttonDeleteProduct);
 
-        dialogBuilder.setTitle("Are you want to delete " + employeeName + "?");
+        dialogBuilder.setTitle("Are you sure you want to delete " + employeeName + "?");
         final AlertDialog b = dialogBuilder.create();
         b.show();
 
