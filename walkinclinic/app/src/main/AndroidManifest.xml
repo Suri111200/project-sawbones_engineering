@@ -24,6 +24,8 @@
         <activity android:name=".ServicesAdmin" />
         <activity android:name=".Welcome" />
         <activity android:name=".SignIn" />
+        <activity android:name=".SP_Search"/>
+        <activity android:name=".SP_List"/>
         <activity android:name=".Register" />
         <activity android:name=".MainActivity">
             <intent-filter>
