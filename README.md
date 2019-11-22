@@ -12,12 +12,12 @@
 Please remove jmanes10 and rxio, they are now not part of our group.
 
 # Build Status:
-[![CircleCI](https://circleci.com/gh/professor-forward/project-sawbones_engineering/tree/f%2Fdeliverable03.svg?style=svg&circle-token=3e2bea451884276e8faa82ed09ca5e7628290049)](https://circleci.com/gh/professor-forward/project-sawbones_engineering/tree/f%2Fdeliverable03)
-
+[![CircleCI](https://circleci.com/gh/professor-forward/project-sawbones_engineering/tree/f%2Fdeliverable04.svg?style=svg&circle-token=3e2bea451884276e8faa82ed09ca5e7628290049)](https://circleci.com/gh/professor-forward/project-sawbones_engineering/tree/f%2Fdeliverable04)
+<!--
 CircleCI built successfully before the JUnit testing was implemented as seen below. As mentioned by the Professor on Piazza we can not build as there are "no credits are available on your plan". 
 ![](https://i.imgur.com/2oCFDSh.png)
 ![](https://i.imgur.com/cgSZhVX.png)
-
+-->
 # How to Sign in as Admin
 
 email = admin@uottawa.ca
