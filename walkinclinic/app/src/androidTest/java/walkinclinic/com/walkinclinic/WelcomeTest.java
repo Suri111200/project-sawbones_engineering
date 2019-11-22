@@ -43,7 +43,7 @@ public class WelcomeTest {
 
         Intent intent = myActivity.getIntent();
         user =(Person) intent.getSerializableExtra("Person");
-        buttonToService = myActivity.findViewById(R.id.toServices);
+        buttonToService = myActivity.findViewById(R.id.toProfile);
         one = myActivity.findViewById(R.id.textView);
         two = myActivity.findViewById(R.id.textView2);
 

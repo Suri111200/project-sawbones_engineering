@@ -14,6 +14,7 @@ public class ProfileAdmin extends AppCompatActivity {
     TextView typeT;
     TextView emailT;
     Button buttonToServices;
+    Button buttonToUsers;
 
     Admin user;
 
@@ -26,6 +27,7 @@ public class ProfileAdmin extends AppCompatActivity {
         typeT = findViewById(R.id.typeAText);
         emailT = findViewById(R.id.emailAText);
         buttonToServices = findViewById(R.id.serviceB);
+        buttonToUsers = findViewById(R.id.usersB);
 
         Intent intent = getIntent();
         user = (Admin) intent.getSerializableExtra("Person");
@@ -40,6 +42,12 @@ public class ProfileAdmin extends AppCompatActivity {
                 toServices();
             }
         });
+        buttonToUsers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toUsers();
+            }
+        });
     }
 
     public void toServices ()
@@ -48,5 +56,13 @@ public class ProfileAdmin extends AppCompatActivity {
         Intent toServices = new Intent(this, ServicesAdmin.class);
         toServices.putExtra("Person", user);
         startActivity(toServices);
+    }
+
+    public void toUsers ()
+    {
+        //Toast.makeText(Welcome.this, user.getClass().getSimpleName(), Toast.LENGTH_LONG).show();
+        Intent toUsers = new Intent(this, EmployeesAdmin.class);
+        toUsers.putExtra("Person", user);
+        startActivity(toUsers);
     }
 }

@@ -14,6 +14,8 @@
         <activity android:name=".AddAvailabilities"></activity>
         <activity android:name=".Availabilities" />
         <activity android:name=".ServicesSP" />
+        <activity android:name=".EmployeesAdmin"/>
+        <activity android:name=".PersonList"/>
         <activity android:name=".ProfileServiceProvider" />
         <activity android:name=".ProfileAdmin" />
         <activity android:name=".ProfileBasic" />
