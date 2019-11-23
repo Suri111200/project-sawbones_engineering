@@ -32,12 +32,14 @@ public class SP_List extends ArrayAdapter<ServiceProvider> {
         View listViewItem = inflater.inflate(R.layout.layout_sp_list, null, true);
 
         TextView textViewName = (TextView) listViewItem.findViewById(R.id.textViewName);
-        //TextView textViewRole = (TextView) listViewItem.findViewById(R.id.textViewRole);
+        TextView textViewAddress = (TextView) listViewItem.findViewById(R.id.textViewAddress);
+        TextView textViewDescription = (TextView) listViewItem.findViewById(R.id.textViewDescription);
 
         ServiceProvider provider = providers.get(position);
-        //TODO: Display rating next to Service Provider's name. Maybe clinic description too.
         textViewName.setText(provider.getCompany());
-        //textViewRole.setText(String.valueOf(employee.getRole()));
+        textViewAddress.setText(String.valueOf(provider.getAddress()));
+        if(provider.getDescription()!="")
+            textViewDescription.setText(String.valueOf(provider.getDescription()));
         return listViewItem;
     }
 

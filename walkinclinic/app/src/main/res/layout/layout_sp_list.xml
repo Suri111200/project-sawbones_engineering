@@ -8,6 +8,34 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:id="@+id/textViewName"
+        android:textSize="22sp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginLeft="2dp"
+        android:padding="2dip"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:text=""/>
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/textViewAddress"
+        android:textSize="15sp"
+        android:layout_marginRight="2dp"
+        android:layout_marginLeft="2dp"
+        android:padding="2dip"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:text=""/>
+
+    <TextView
+        android:id="@+id/textViewDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_marginRight="2dp"
+        android:layout_marginLeft="2dp"
+        android:padding="2dip"
+        android:hint="This clinic has no description"
+        android:text=""
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
 </LinearLayout>

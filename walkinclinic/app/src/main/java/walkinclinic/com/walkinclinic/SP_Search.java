@@ -5,10 +5,13 @@ import android.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,7 +51,7 @@ public class SP_Search extends AppCompatActivity {
         listViewServiceProviders.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //TODO: Prompt to review? Book an appointment?
+                //TODO: Prompt to review? Book an appointment? View services?
                 return true;
             }
         });
@@ -89,9 +92,16 @@ public class SP_Search extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.search_provider,menu);
-        MenuItem menuItem = menu.findItem(R.id.searchMenu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.search_provider,menu);
+
+        MenuItem menuItem = menu.findItem(R.id.searchClinics);
         SearchView searchView = (SearchView) menuItem.getActionView();
+
+        searchView.setFocusable(true);
+        searchView.setIconified(false);
+        searchView.requestFocusFromTouch();
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -102,16 +112,30 @@ public class SP_Search extends AppCompatActivity {
             public boolean onQueryTextChange(String query){
                 List<ServiceProvider> results = new ArrayList<>();
                 for(ServiceProvider i: providers){
-                    if(i.getCompany().toLowerCase().contains(query.toLowerCase()))
+                    if(i.getCompany().toLowerCase().contains(query.toLowerCase()) || i.getDescription().toLowerCase().contains(query.toLowerCase()))
                         results.add(i);
                 }
                 ((SP_List)listViewServiceProviders.getAdapter()).update(results);
                 return false;
             }
-
-
         });
 
+        //TODO: Implement searching for services
+
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.searchClinics:
+                Toast.makeText(this, "Searching for clinics", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.searchServices:
+                Toast.makeText(this,"Searching for services", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

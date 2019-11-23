@@ -1,11 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/searchMenu"
-        android:icon="@android:drawable/ic_menu_search"
-        android:title="SearchMenu"
-        app:showAsAction="always|collapseActionView"
-        app:actionViewClass="android.widget.SearchView"
-        />
+
+        <item
+            android:id="@+id/searchTitle"
+            android:title="Search..."
+            app:showAsAction="never"
+            android:enabled="true"
+            android:visible="true" />
+
+        <item
+            android:id="@+id/searchClinics"
+            android:title="Search for clinics"
+            app:showAsAction="never|collapseActionView"
+            app:actionViewClass="android.widget.SearchView"
+            android:focusable="true"
+            app:iconifiedByDefault="false"
+            android:focusableInTouchMode="true"
+            android:enabled="true"
+            android:visible="true" />
+
+        <item
+            android:id="@+id/searchServices"
+            android:title="Search for services"
+            app:showAsAction="never"
+            android:enabled="true"
+            android:visible="true" />
+
 </menu>
