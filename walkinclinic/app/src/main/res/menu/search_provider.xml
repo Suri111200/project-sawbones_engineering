@@ -3,28 +3,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
         <item
-            android:id="@+id/searchTitle"
-            android:title="Search..."
-            app:showAsAction="never"
-            android:enabled="true"
-            android:visible="true" />
-
-        <item
             android:id="@+id/searchClinics"
-            android:title="Search for clinics"
-            app:showAsAction="never|collapseActionView"
+            android:enabled="true"
+            android:icon="@android:drawable/ic_search_category_default"
+            android:title=""
+            android:queryHint="Search clinics"
+            android:visible="true"
+            app:showAsAction="always"
             app:actionViewClass="android.widget.SearchView"
-            android:focusable="true"
             app:iconifiedByDefault="false"
-            android:focusableInTouchMode="true"
-            android:enabled="true"
-            android:visible="true" />
+            android:paddingRight="100dp"
 
-        <item
-            android:id="@+id/searchServices"
-            android:title="Search for services"
-            app:showAsAction="never"
-            android:enabled="true"
-            android:visible="true" />
-
+/>
 </menu>

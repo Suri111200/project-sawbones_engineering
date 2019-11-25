@@ -10,16 +10,20 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 import android.view.MenuItem;
 
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabItem;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,115 +31,28 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import android.os.Bundle;
+import android.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SP_Search extends AppCompatActivity {
 
-    DatabaseReference mDatabase;
-    ListView listViewServiceProviders;
-
-    List<ServiceProvider> providers;
-
-    SP_List providerAdapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sp_search);
 
-        listViewServiceProviders = (ListView) findViewById(R.id.providerList);
-        providers = new ArrayList<>();
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 
-        listViewServiceProviders.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //TODO: Prompt to review? Book an appointment? View services?
-                return true;
-            }
-        });
+        AppBarLayout appbar = findViewById(R.id.appbar);
+        TabItem tabClinic = findViewById(R.id.TabClinic);
+        TabItem tabService = findViewById(R.id.TabService);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("Person");
-        mDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                providers.clear();
-
-                for (DataSnapshot dSnapshot : dataSnapshot.getChildren()) {
-                    for (DataSnapshot ds : dSnapshot.getChildren()) {
-                        if (dSnapshot.getKey().toString().equals("ServiceProvider")) {
-                            ServiceProvider provider = new ServiceProvider(
-                                    ds.child("id").getValue().toString(),
-                                    ds.child("email").getValue().toString(),
-                                    ds.child("password").getValue().toString(),
-                                    ds.child("name").getValue().toString(),
-                                    ds.child("address").getValue().toString(),
-                                    ds.child("phoneNumber").getValue().toString(),
-                                    ds.child("company").getValue().toString(),
-                                    ds.child("description").getValue().toString(),
-                                    Boolean.parseBoolean(ds.child("licensed").getValue().toString()));
-                            providers.add(provider);
-                        }
-                    }
-                }
-
-                providerAdapter = new SP_List(SP_Search.this, providers);
-                listViewServiceProviders.setAdapter(providerAdapter);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}
-        });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.search_provider,menu);
-
-        MenuItem menuItem = menu.findItem(R.id.searchClinics);
-        SearchView searchView = (SearchView) menuItem.getActionView();
-
-        searchView.setFocusable(true);
-        searchView.setIconified(false);
-        searchView.requestFocusFromTouch();
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String query){
-                List<ServiceProvider> results = new ArrayList<>();
-                for(ServiceProvider i: providers){
-                    if(i.getCompany().toLowerCase().contains(query.toLowerCase()) || i.getDescription().toLowerCase().contains(query.toLowerCase()))
-                        results.add(i);
-                }
-                ((SP_List)listViewServiceProviders.getAdapter()).update(results);
-                return false;
-            }
-        });
-
-        //TODO: Implement searching for services
-
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch (item.getItemId()){
-            case R.id.searchClinics:
-                Toast.makeText(this, "Searching for clinics", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.searchServices:
-                Toast.makeText(this,"Searching for services", Toast.LENGTH_SHORT).show();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        final ViewPager viewPager = findViewById(R.id.ViewPager);
+        SearchAdapter searchAdapter = new SearchAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(searchAdapter);
+        TabLayout tabs = findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
     }
 }

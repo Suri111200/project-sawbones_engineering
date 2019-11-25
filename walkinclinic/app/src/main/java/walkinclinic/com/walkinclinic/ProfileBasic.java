@@ -31,7 +31,7 @@ public class ProfileBasic extends AppCompatActivity {
         Intent intent = getIntent();
         user = (Patient) intent.getSerializableExtra("Person");
 
-        nameT.setText("Email: "+user.getName());
+        nameT.setText("Name: "+user.getName());
         typeT.setText("Type: "+ user.getClass().getSimpleName());
         emailT.setText("Email: "+ user.getEmail());
 

@@ -38,7 +38,7 @@ public class SP_List extends ArrayAdapter<ServiceProvider> {
         ServiceProvider provider = providers.get(position);
         textViewName.setText(provider.getCompany());
         textViewAddress.setText(String.valueOf(provider.getAddress()));
-        if(provider.getDescription()!="")
+        if(provider.getDescription() != "")
             textViewDescription.setText(String.valueOf(provider.getDescription()));
         return listViewItem;
     }

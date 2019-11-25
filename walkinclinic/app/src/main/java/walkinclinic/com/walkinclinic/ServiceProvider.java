@@ -15,6 +15,7 @@ public class  ServiceProvider extends Person implements Serializable {
     String company; //mandatory
     String description;
     boolean licensed;
+    ArrayList<Review> reviews;
 
     public ServiceProvider (String id, String email, String password, String name, String address, String phoneNumber, String company, String description, boolean licensed)
     {
