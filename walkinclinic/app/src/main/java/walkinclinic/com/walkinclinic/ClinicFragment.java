@@ -1,5 +1,6 @@
 package walkinclinic.com.walkinclinic;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -84,6 +85,10 @@ public class ClinicFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //TODO: Open clinic profile
+                ServiceProvider provider = providers.get(i);
+                Intent toProfileClass = new Intent(adapterView.getContext(), ProfileServiceProvider.class);
+                toProfileClass.putExtra("Person", provider);
+                startActivity(toProfileClass);
             }
         });
 
