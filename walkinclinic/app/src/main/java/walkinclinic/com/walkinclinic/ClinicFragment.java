@@ -118,7 +118,7 @@ public class ClinicFragment extends Fragment {
                     if(i.getCompany().toLowerCase().contains(query.toLowerCase()) || i.getDescription().toLowerCase().contains(query.toLowerCase()))
                         results.add(i);
                 }
-                ((SP_List)listViewServiceProviders.getAdapter()).update(results);
+                ((SP_List)listViewServiceProviders.getAdapter()).update(results, query);
                 return false;
             }
         });
