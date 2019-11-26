@@ -41,6 +41,11 @@ public class AddAvailabilities extends AppCompatActivity {
     RadioButton rb6;
     RadioButton rb7;
 
+    int hodstart = 0;
+    int minstart = 0;
+    int hodend = 0;
+    int minend = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,26 +75,23 @@ public class AddAvailabilities extends AppCompatActivity {
         Intent intent = getIntent();
         user = (ServiceProvider) intent.getSerializableExtra("Person");
         id = intent.getStringExtra("id");
-
+        Toast.makeText(getApplicationContext(), id, Toast.LENGTH_LONG).show();
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addAvailability(startTimeT.getText().toString(), endTimeT.getText().toString());
+                addAvailability(id, startTimeT.getText().toString(), endTimeT.getText().toString());
             }
         });
 
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (id.equals(""))
-                {
+                if (!id.equals("")) {
                     updateAvailability(id, startTimeT.getText().toString(), endTimeT.getText().toString());
-                }
-                else
+                } else
                     Toast.makeText(getApplicationContext(), "No availability specified", Toast.LENGTH_LONG).show();
             }
         });
-
 
 
         rg1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -143,6 +145,7 @@ public class AddAvailabilities extends AppCompatActivity {
                 timePickerDialog = new TimePickerDialog(AddAvailabilities.this, new TimePickerDialog.OnTimeSetListener() {
 
                     String amPm;
+
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
                         if (hourOfDay >= 12) {
@@ -150,6 +153,8 @@ public class AddAvailabilities extends AppCompatActivity {
                         } else {
                             amPm = "AM";
                         }
+                        hodstart = hourOfDay;
+                        minstart = minutes;
                         String set = String.format("%02d:%02d", hourOfDay, minutes) + amPm;
                         startTimeT.setText(set);
                     }
@@ -165,6 +170,7 @@ public class AddAvailabilities extends AppCompatActivity {
                 timePickerDialog = new TimePickerDialog(AddAvailabilities.this, new TimePickerDialog.OnTimeSetListener() {
 
                     String amPm;
+
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
                         if (hourOfDay >= 12) {
@@ -172,6 +178,8 @@ public class AddAvailabilities extends AppCompatActivity {
                         } else {
                             amPm = "AM";
                         }
+                        hodend = hourOfDay;
+                        minend = minutes;
                         String set = String.format("%02d:%02d", hourOfDay, minutes) + amPm;
                         endTimeT.setText(set);
                     }
@@ -191,7 +199,7 @@ public class AddAvailabilities extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), id, Toast.LENGTH_LONG).show();
 
 
-        if(rb1.isChecked())
+        if (rb1.isChecked())
             day = rb1.getText().toString();
         else if (rb2.isChecked())
             day = rb2.getText().toString();
@@ -205,22 +213,23 @@ public class AddAvailabilities extends AppCompatActivity {
             day = rb6.getText().toString();
         else
             day = rb7.getText().toString();
+        if (hodstart <= hodend && minstart < minend) {
+            if (!TextUtils.isEmpty(day) && !TextUtils.isEmpty(startTime) && !day.equals("") && !startTime.equals(endTime)) {
+                Availability availability = new Availability(id, day, startTime, endTime);
+                dR.setValue(availability);
+                Toast.makeText(getApplicationContext(), "Availability updated", Toast.LENGTH_LONG).show();
+            } else
+                Toast.makeText(getApplicationContext(), "Make sure to pick all fields, including day, start time and end time", Toast.LENGTH_LONG).show();
 
-
-        if (!TextUtils.isEmpty(day) && !TextUtils.isEmpty(startTime) && !day.equals("") && !startTime.equals(endTime)) {
-            Availability availability = new Availability(id, day, startTime, endTime);
-            dR.setValue(availability);
-            Toast.makeText(getApplicationContext(), "Availability updated", Toast.LENGTH_LONG).show();
-        }
-        else
-            Toast.makeText(getApplicationContext(), "Make sure to pick all fields, including day, start time and end time", Toast.LENGTH_LONG).show();
+        } else
+            Toast.makeText(getApplicationContext(), "End Time has to be after Start Time", Toast.LENGTH_LONG).show();
     }
 
-    private void addAvailability(String startTime, String endTime) {
+    private void addAvailability(String id, String startTime, String endTime){
 
         DatabaseReference dR = FirebaseDatabase.getInstance().getReference("Person").child("ServiceProvider").child(user.getId()).child("Availability");
 
-        if(rb1.isChecked())
+        if (rb1.isChecked())
             day = rb1.getText().toString();
         else if (rb2.isChecked())
             day = rb2.getText().toString();
@@ -235,19 +244,19 @@ public class AddAvailabilities extends AppCompatActivity {
         else
             day = rb7.getText().toString();
 
-        if (!TextUtils.isEmpty(day) && !TextUtils.isEmpty(startTime) && !day.equals("") && !startTime.equals(endTime))
-        {
-            String id = dR.push().getKey();
+        if (id.equals("")) {
+            if (!TextUtils.isEmpty(day) && !TextUtils.isEmpty(startTime) && !day.equals("") && !startTime.equals(endTime)) {
+                String new_id = dR.push().getKey();
 
-            Availability avail = new Availability (id, day, startTime, endTime);
+                Availability avail = new Availability(new_id, day, startTime, endTime);
 
-            dR.child(id).setValue(avail);
+                dR.child(new_id).setValue(avail);
 
-            Toast.makeText(this, "Availability added", Toast.LENGTH_LONG).show();
-        }
-        else
-        {
-            Toast.makeText(this, "Please enter a day, start time and end time", Toast.LENGTH_LONG).show();
-        }
+                Toast.makeText(this, "Availability added", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, "Please enter a day, start time and end time", Toast.LENGTH_LONG).show();
+            }
+        } else
+            Toast.makeText(this, "Click the update button to update availability.", Toast.LENGTH_LONG).show();
     }
 }
