@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/textViewName" android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" android:text=""/>
-    <TextView android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/textViewRole" android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" android:text=""/>
+    android:id="@+id/serviceList"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textViewName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:layout_marginBottom="2dp"
+        android:text=""
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+
+    <TextView
+        android:id="@+id/textViewRole"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:paddingBottom="5dp"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
 </LinearLayout>

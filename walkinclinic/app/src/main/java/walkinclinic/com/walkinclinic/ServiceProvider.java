@@ -1,5 +1,8 @@
 package walkinclinic.com.walkinclinic;
 
+import android.provider.ContactsContract;
+import android.util.Log;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,6 +11,12 @@ import java.util.Map;
 
 import androidx.annotation.NonNull;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class  ServiceProvider extends Person implements Serializable {
 
     String address; //mandatory
@@ -15,7 +24,6 @@ public class  ServiceProvider extends Person implements Serializable {
     String company; //mandatory
     String description;
     boolean licensed;
-    ArrayList<Review> reviews;
 
     public ServiceProvider (String id, String email, String password, String name, String address, String phoneNumber, String company, String description, boolean licensed)
     {

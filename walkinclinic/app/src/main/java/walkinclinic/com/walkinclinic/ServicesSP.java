@@ -120,14 +120,11 @@ public class ServicesSP extends AppCompatActivity {
 
     private void addService(Service service) {
 
-        for (int i = 0; i < yourServices.size(); i++)
-        {
-            if (yourServices.get(i).getId().equals(service.getId()))
-            {
+        for (int i = 0; i < yourServices.size(); i++){
+            if (yourServices.get(i).getId().equals(service.getId())){
                 Toast.makeText(ServicesSP.this, "Service already added", Toast.LENGTH_LONG).show();
                 return;
             }
-
         }
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
