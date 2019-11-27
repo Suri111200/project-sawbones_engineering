@@ -28,7 +28,6 @@ public class Register extends AppCompatActivity {
 
     Button patient;
     Button admin;
-    Button employee;
     Button serviceProvider;
 
     String type = "not";
@@ -112,16 +111,6 @@ public class Register extends AppCompatActivity {
             }
         });
 
-        /*
-        employee = (Button) findViewById(R.id.employeeB);
-        employee.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                changeType(v, "Employee");
-            }
-        });
-
-         */
 
         serviceProvider = (Button) findViewById(R.id.serviceProviderB);
         serviceProvider.setOnClickListener(new View.OnClickListener() {
@@ -163,16 +152,10 @@ public class Register extends AppCompatActivity {
                 //            user = new Admin(id, email, password, name);
                 //            mDatabase.child("Person").child("Admin").child(id).setValue(user);
                 Toast.makeText(Register.this, "Admin account already created.", Toast.LENGTH_LONG).show();
-            } else if (type.equals("Patient")) {
+            } else  {
                 user = new Patient(id, email, password, name);
                 mDatabase.child("Person").child("Patient").child(id).setValue(user);
                 Toast.makeText(Register.this, "Patient account created", Toast.LENGTH_LONG).show();
-            } else {
-                /*
-                user = new Employee(id, email, password, name);
-                mDatabase.child("Person").child("Employee").child(id).setValue(user);
-                Toast.makeText(Register.this, "Employee account created", Toast.LENGTH_LONG).show();
-                 */
             }
             toWelcome.putExtra("Person", user);
             startActivity(toWelcome);
@@ -187,7 +170,6 @@ public class Register extends AppCompatActivity {
 
         if (type.equals("Admin")) {
             patient.getBackground().clearColorFilter();
-            employee.getBackground().clearColorFilter();
             serviceProvider.getBackground().clearColorFilter();
             Toast.makeText(Register.this, "Admin account already created.", Toast.LENGTH_LONG).show();
             v.getBackground().clearColorFilter();
@@ -196,23 +178,16 @@ public class Register extends AppCompatActivity {
         }
         else if (type.equals("Patient"))
         {
-            employee.getBackground().clearColorFilter();
+
             admin.getBackground().clearColorFilter();
             serviceProvider.getBackground().clearColorFilter();
             registerButton.setText("Register");
         }
-        else if (type.equals("Employee"))
-        {
-            patient.getBackground().clearColorFilter();
-            admin.getBackground().clearColorFilter();
-            serviceProvider.getBackground().clearColorFilter();
-            registerButton.setText("Register");
-        }
+
         else if(type.equals("ServiceProvider"))
         {
             patient.getBackground().clearColorFilter();
             admin.getBackground().clearColorFilter();
-            employee.getBackground().clearColorFilter();
             registerButton.setText("Next");
         }
 
