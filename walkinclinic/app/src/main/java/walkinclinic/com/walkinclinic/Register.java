@@ -1,6 +1,5 @@
 package walkinclinic.com.walkinclinic;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 
@@ -14,20 +13,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class Register extends AppCompatActivity {
@@ -35,11 +29,19 @@ public class Register extends AppCompatActivity {
     Button patient;
     Button admin;
     Button employee;
+    Button serviceProvider;
 
-    String type = "Patient";
+    String type = "not";
+
+    TextView errorMessage;
 
     Button registerButton;
     private DatabaseReference mDatabase;
+    EditText emailB;
+    EditText password1B;
+    EditText password2B;
+    EditText nameB;
+
 
     MessageDigest digest;
 
@@ -48,6 +50,8 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        errorMessage = (TextView) findViewById(R.id.errorMessage);
+
         try {
             digest = MessageDigest.getInstance("SHA-256");
         }
@@ -55,33 +59,40 @@ public class Register extends AppCompatActivity {
             System.err.println("I'm sorry, but MD5 is not a valid message digest algorithm");
         }
 
+        emailB = findViewById(R.id.emailRegister);
+        password1B = findViewById(R.id.passwordRegister);
+        password2B = findViewById(R.id.password2Register);
+        nameB = findViewById(R.id.nameText);
+
         registerButton = (Button) findViewById(R.id.registerb);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)  {
-                EditText emailB = findViewById(R.id.emailRegister);
                 String email =  emailB.getText().toString();
-                EditText password1B = findViewById(R.id.passwordRegister);
                 String password1 =  password1B.getText().toString();
                 byte[] hash1 = digest.digest(password1.getBytes(StandardCharsets.UTF_8));
                 String password = new String(hash1);
-                Toast.makeText(Register.this, password, Toast.LENGTH_LONG).show();
-                EditText password2B = findViewById(R.id.password2Register);
                 String password2 =  password2B.getText().toString();
-                EditText nameB = findViewById(R.id.name);
                 String name = nameB.getText().toString();
-                if (!email.equals("") && !name.equals("") && !password1.equals("") && !password2.equals("") && password1.equals(password2))
-                    if(!validateEmail(emailB.getText().toString())){
-                        emailB.setError("Invalid Email");
-                        emailB.requestFocus();
-                    } else if (!validatePassword(emailB.getText().toString())){
-                        password1B.setError("Invalid Password");
-                        password1B.requestFocus();
+                if (type.equals("not"))
+                {
+                    errorMessage.setText("Please select what type of user profile you wish to be created.");
+                }
+                else
+                {
+                    if (!email.equals("") && !name.equals("") && !password1.equals("") && !password2.equals("")) {
+                        if (password1.equals(password2))
+                            registerUser(name, email, password);
+                        else {
+                            errorMessage.setText("Passwords don't match.");
+                            password1B.setText("");
+                            password2B.setText("");
+                        }
                     }
-                    else{
-                        registerUser(name, email, password);
-                        Toast.makeText(Register.this, "Input Validation Success", Toast.LENGTH_LONG).show();
-                    }
+                    else
+                        errorMessage.setText("Make sure all fields are filled in.");
+                }
+
             }
         });
 
@@ -101,6 +112,7 @@ public class Register extends AppCompatActivity {
             }
         });
 
+        /*
         employee = (Button) findViewById(R.id.employeeB);
         employee.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,22 +121,17 @@ public class Register extends AppCompatActivity {
             }
         });
 
+         */
+
+        serviceProvider = (Button) findViewById(R.id.serviceProviderB);
+        serviceProvider.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { changeType(v, "ServiceProvider");
+            }
+        });
+
+
         mDatabase = FirebaseDatabase.getInstance().getReference();
-    }
-
-    protected boolean validatePassword(String password){
-        if(password!=null && password.length()>9){
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    protected boolean validateEmail(String email){
-        String emailPattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z0]{2,})$";
-        Pattern pattern = Pattern.compile(emailPattern);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
     }
 
     public void showPassword (View view)
@@ -141,30 +148,37 @@ public class Register extends AppCompatActivity {
         }
     }
 
-    public void  registerUser (String name, String email, String password)
-    {
-        Intent toWelcome = new Intent(this, Welcome.class);
+    public void  registerUser (String name, String email, String password) {
 
-        if (type.equals("Admin")) {
-//            Person user = new Admin(email, password, name);
-//            mDatabase.child("Admin").push().setValue(user);
-            Toast.makeText(Register.this, "Admin account already created.", Toast.LENGTH_LONG).show();
+        String id = mDatabase.push().getKey();
+        Person user = new Person("h", "h", "h", "h");
+        if (type.equals("ServiceProvider")) {
+            Intent nextStep = new Intent(this, ServiceProviderRegister.class);
+            user = new ServiceProvider(id, email, password, name, "", "", "", "", false);
+            nextStep.putExtra("Person", user);
+            startActivity(nextStep);
+        } else {
+            Intent toWelcome = new Intent(this, Welcome.class);
+            if (type.equals("Admin")) {
+                //            user = new Admin(id, email, password, name);
+                //            mDatabase.child("Person").child("Admin").child(id).setValue(user);
+                Toast.makeText(Register.this, "Admin account already created.", Toast.LENGTH_LONG).show();
+            } else if (type.equals("Patient")) {
+                user = new Patient(id, email, password, name);
+                mDatabase.child("Person").child("Patient").child(id).setValue(user);
+                Toast.makeText(Register.this, "Patient account created", Toast.LENGTH_LONG).show();
+            } else {
+                /*
+                user = new Employee(id, email, password, name);
+                mDatabase.child("Person").child("Employee").child(id).setValue(user);
+                Toast.makeText(Register.this, "Employee account created", Toast.LENGTH_LONG).show();
+                 */
+            }
+            toWelcome.putExtra("Person", user);
+            startActivity(toWelcome);
         }
-        else if (type.equals("Patient"))
-        {
-            Person user = new Patient(email, password, name);
-            mDatabase.child("Patient").push().setValue(user);
-        }
-        else if (type.equals("Employee"))
-        {
-            Person user = new Employee(email, password, name);
-            mDatabase.child("Employee").push().setValue(user);
-        }
-
-        toWelcome.putExtra("name", name);
-        toWelcome.putExtra("role", type);
-        startActivity(toWelcome);
     }
+
 
     public void changeType (View v, String type)
     {
@@ -174,20 +188,36 @@ public class Register extends AppCompatActivity {
         if (type.equals("Admin")) {
             patient.getBackground().clearColorFilter();
             employee.getBackground().clearColorFilter();
+            serviceProvider.getBackground().clearColorFilter();
+            Toast.makeText(Register.this, "Admin account already created.", Toast.LENGTH_LONG).show();
+            v.getBackground().clearColorFilter();
+            this.type = "not";
+            registerButton.setText("Register");
         }
         else if (type.equals("Patient"))
         {
             employee.getBackground().clearColorFilter();
             admin.getBackground().clearColorFilter();
+            serviceProvider.getBackground().clearColorFilter();
+            registerButton.setText("Register");
         }
         else if (type.equals("Employee"))
         {
             patient.getBackground().clearColorFilter();
             admin.getBackground().clearColorFilter();
+            serviceProvider.getBackground().clearColorFilter();
+            registerButton.setText("Register");
+        }
+        else if(type.equals("ServiceProvider"))
+        {
+            patient.getBackground().clearColorFilter();
+            admin.getBackground().clearColorFilter();
+            employee.getBackground().clearColorFilter();
+            registerButton.setText("Next");
         }
 
-
     }
+
 
 
 
