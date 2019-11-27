@@ -1,0 +1,57 @@
+class Person
+{
+  String id;
+  String email;
+  String password;
+  String name;
+  }
+
+class Admin
+{
+  isA Person;
+    1 -- * Service;
+    1--* Patient;
+    1--* ServiceProvider;
+}
+
+class Patient
+{
+  isA Person;
+    * -- * Service;
+}
+
+class Service
+{
+  String id;
+  String name;
+  String role;
+  * -- * ServiceProvider;
+}
+
+
+
+class ServiceProvider
+{
+  isA Person;
+  String address;
+  String phoneNumber;
+  String description;
+  boolean license;
+}
+
+class Availability{
+  7--1 ServiceProvider;
+  String id;
+  String day;
+  String startTime;
+  String endTime;
+  
+}
+
+class Review{
+  *--1 ServiceProvider;
+  String id;
+  Patient user;
+  Float reviewValue;
+  String reviewContent;
+}
