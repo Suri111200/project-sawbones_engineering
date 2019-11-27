@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +31,11 @@ public class ServiceProviderInfo extends AppCompatActivity {
     TextView descT;
     TextView licensedT;
 
-    ServiceProvider user;
+    Button bookB;
+    Button checkInB;
+
+    Patient user;
+    ServiceProvider sp;
 
     DatabaseReference mDatabase;
     ListView listViewYourServices;
@@ -56,17 +61,35 @@ public class ServiceProviderInfo extends AppCompatActivity {
         listViewYourServices = findViewById(R.id.serviceList);
 
         Intent intent = getIntent();
-        user = (ServiceProvider) intent.getSerializableExtra("Person");
+        user = (Patient) intent.getSerializableExtra("Person");
+        sp = (ServiceProvider) intent.getSerializableExtra("ServiceProvider");
 
-        String name = "Name: " + user.getName();
-        String type = "Type: " + user.getClass().getSimpleName();
-        String email = "Email: " + user.getEmail();
-        String company = "Company: " + user.getCompany();
-        String address = "Address: " + user.getAddress();
-        String phone = "Phone Number: " + user.getPhoneNumber();
-        String desc = "Description: " + user.getDescription();
+        bookB = findViewById(R.id.appointmentB);
+        checkInB = findViewById(R.id.checkInB);
+
+//        bookB.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
+//
+//        checkInB.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
+
+        String name = "Name: " + sp.getName();
+        String type = "Type: " + sp.getClass().getSimpleName();
+        String email = "Email: " + sp.getEmail();
+        String company = "Company: " + sp.getCompany();
+        String address = "Address: " + sp.getAddress();
+        String phone = "Phone Number: " + sp.getPhoneNumber();
+        String desc = "Description: " + sp.getDescription();
         String licensed;
-        if (user.getLicensed())
+        if (sp.getLicensed())
             licensed = "Licensed";
         else
             licensed = "Not Licensed";
@@ -85,7 +108,7 @@ public class ServiceProviderInfo extends AppCompatActivity {
 
         availabilities = new ArrayList<>();
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("Person").child("ServiceProvider").child(user.getId()).child("Services");
+        mDatabase = FirebaseDatabase.getInstance().getReference("Person").child("ServiceProvider").child(sp.getId()).child("Services");
 
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -106,7 +129,7 @@ public class ServiceProviderInfo extends AppCompatActivity {
             }
         });
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("Person").child("ServiceProvider").child(user.getId()).child("Availability");
+        mDatabase = FirebaseDatabase.getInstance().getReference("Person").child("ServiceProvider").child(sp.getId()).child("Availability");
 
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -126,6 +149,7 @@ public class ServiceProviderInfo extends AppCompatActivity {
 
             }
         });
-//    }
     }
+
+
 }
