@@ -112,6 +112,7 @@ public class Register extends AppCompatActivity {
             }
         });
 
+        /*
         employee = (Button) findViewById(R.id.employeeB);
         employee.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,6 +120,8 @@ public class Register extends AppCompatActivity {
                 changeType(v, "Employee");
             }
         });
+
+         */
 
         serviceProvider = (Button) findViewById(R.id.serviceProviderB);
         serviceProvider.setOnClickListener(new View.OnClickListener() {
@@ -165,9 +168,11 @@ public class Register extends AppCompatActivity {
                 mDatabase.child("Person").child("Patient").child(id).setValue(user);
                 Toast.makeText(Register.this, "Patient account created", Toast.LENGTH_LONG).show();
             } else {
+                /*
                 user = new Employee(id, email, password, name);
                 mDatabase.child("Person").child("Employee").child(id).setValue(user);
                 Toast.makeText(Register.this, "Employee account created", Toast.LENGTH_LONG).show();
+                 */
             }
             toWelcome.putExtra("Person", user);
             startActivity(toWelcome);
