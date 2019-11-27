@@ -65,7 +65,7 @@ public class Availabilities extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance().getReference("Person").child("ServiceProvider").child(user.getId()).child("Availability");
 
-        // THE FOLLOWING GETS IT BUGGING OUT
+
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
