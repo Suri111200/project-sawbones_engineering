@@ -65,4 +65,11 @@ fastlane/test_output
 fastlane/readme.md
 
 .DS_Store
+/walkinclinic/.gradle/5.4.1/executionHistory/*
+/walkinclinic/.gradle/5.4.1/fileHistory/*
+/walkinclinic/.gradle/5.4.1/javaCompile/*
+/walkinclinic/.gradle/5.4.1/buildOutputCleanup/*
+/walkinclinic/.idea/caches/*
+
+
 
