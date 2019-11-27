@@ -98,7 +98,6 @@ public class ClinicFragment extends Fragment {
                 startActivity(toProfileClass);
             }
         });
-
         return view;
     }
     @Override
