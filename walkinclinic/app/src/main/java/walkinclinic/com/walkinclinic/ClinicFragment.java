@@ -36,6 +36,8 @@ public class ClinicFragment extends Fragment {
     private ListView listViewServiceProviders;
     private SearchView searchView;
 
+    Patient user;
+
     public ClinicFragment() {
         // Required empty public constructor
     }
@@ -47,6 +49,9 @@ public class ClinicFragment extends Fragment {
         setHasOptionsMenu(true);
 
         listViewServiceProviders = (ListView) view.findViewById(R.id.providerList);
+
+        Bundle args = getArguments();
+        user = (Patient) args.getSerializable("Person");
 
         mDatabase = FirebaseDatabase.getInstance().getReference("Person");
         mDatabase.addValueEventListener(new ValueEventListener() {
@@ -88,8 +93,8 @@ public class ClinicFragment extends Fragment {
                 //TODO: Open clinic profile
                 ServiceProvider provider = providers.get(i);
                 Intent toProfileClass = new Intent(adapterView.getContext(), ServiceProviderInfo.class);
-
-                toProfileClass.putExtra("Person", provider);
+                toProfileClass.putExtra("Person", user);
+                toProfileClass.putExtra("ServiceProvider", provider);
                 startActivity(toProfileClass);
             }
         });
