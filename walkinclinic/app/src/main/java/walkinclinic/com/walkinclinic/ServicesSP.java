@@ -29,11 +29,8 @@ public class ServicesSP extends AppCompatActivity {
     DatabaseReference mDatabase;
     ListView listViewProducts;
     ListView listViewYourServices;
-
     List<Service> services;
-
     List<Service> yourServices;
-
     ServiceProvider user;
 
     @Override
@@ -73,7 +70,6 @@ public class ServicesSP extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance().getReference("Service");
 
-        // THE FOLLOWING GETS IT BUGGING OUT
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

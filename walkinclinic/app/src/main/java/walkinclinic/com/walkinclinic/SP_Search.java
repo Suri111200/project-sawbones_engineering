@@ -2,6 +2,7 @@ package walkinclinic.com.walkinclinic;
 
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -38,6 +39,8 @@ import java.util.List;
 
 public class SP_Search extends AppCompatActivity {
 
+    Patient user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,12 +48,15 @@ public class SP_Search extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 
+        Intent intent = getIntent();
+        user = (Patient) intent.getSerializableExtra("Person");
+
         AppBarLayout appbar = findViewById(R.id.appbar);
         TabItem tabClinic = findViewById(R.id.TabClinic);
         TabItem tabService = findViewById(R.id.TabService);
 
         final ViewPager viewPager = findViewById(R.id.ViewPager);
-        SearchAdapter searchAdapter = new SearchAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        SearchAdapter searchAdapter = new SearchAdapter(getSupportFragmentManager(), tabLayout.getTabCount(), user);
         viewPager.setAdapter(searchAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
