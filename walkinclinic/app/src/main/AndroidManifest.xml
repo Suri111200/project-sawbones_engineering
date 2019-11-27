@@ -11,6 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light">
+
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBt4UqdDiQ4oTQg2m6ae_y_dbVSvK8mBZk"/>
+
         <activity android:name=".AddAvailabilities"></activity>
         <activity android:name=".Availabilities" />
         <activity android:name=".ServicesSP" />
@@ -21,12 +25,13 @@
         <activity android:name=".ServiceProviderRegister" />
         <activity android:name=".ServicesBasic" />
         <activity android:name=".ServicesAdmin" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".Welcome" />
         <activity android:name=".SignIn" />
         <activity android:name=".SP_Search"/>
         <activity android:name=".SP_List"/>
         <activity android:name=".Register" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".SplashPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
