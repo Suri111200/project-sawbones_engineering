@@ -33,6 +33,7 @@ public class ServiceProviderInfo extends AppCompatActivity {
 
     Button bookB;
     Button checkInB;
+    Button reviewB;
 
     Patient user;
     ServiceProvider sp;
@@ -66,14 +67,18 @@ public class ServiceProviderInfo extends AppCompatActivity {
 
         bookB = findViewById(R.id.appointmentB);
         checkInB = findViewById(R.id.checkInB);
+        reviewB = findViewById(R.id.reviewB);
 
-//        bookB.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
-//
+        bookB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent toBookAppointment = new Intent(listViewAvail.getContext(), BookAppointment.class);
+                toBookAppointment.putExtra("Person", user);
+                toBookAppointment.putExtra("ServiceProvider", sp);
+                startActivity(toBookAppointment);
+            }
+        });
+
 //        checkInB.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
