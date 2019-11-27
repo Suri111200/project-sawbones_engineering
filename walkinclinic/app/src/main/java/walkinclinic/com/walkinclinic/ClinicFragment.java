@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -86,7 +87,8 @@ public class ClinicFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //TODO: Open clinic profile
                 ServiceProvider provider = providers.get(i);
-                Intent toProfileClass = new Intent(adapterView.getContext(), ProfileServiceProvider.class);
+                Intent toProfileClass = new Intent(adapterView.getContext(), ServiceProviderInfo.class);
+
                 toProfileClass.putExtra("Person", provider);
                 startActivity(toProfileClass);
             }

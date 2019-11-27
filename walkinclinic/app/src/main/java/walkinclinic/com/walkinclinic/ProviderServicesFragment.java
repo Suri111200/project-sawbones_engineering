@@ -46,7 +46,7 @@ public class ProviderServicesFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 providers.clear();
                 for (DataSnapshot dSnapshot : dataSnapshot.getChildren()) {
-                    //TODO: shit doesnt work.
+                    //TODO: doesnt work.
                     // it runs all the code but i get a blank screen.
                     ServiceProvider provider = new ServiceProvider(
                             dSnapshot.child("id").getValue().toString(),
