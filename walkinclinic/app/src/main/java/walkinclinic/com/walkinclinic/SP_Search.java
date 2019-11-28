@@ -48,6 +48,7 @@ public class SP_Search extends AppCompatActivity {
     private ListView listViewServiceProviders;
     private SearchView searchView;
     private ArrayList<Service> services;
+    private ArrayList<Availability> availabilities;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +60,7 @@ public class SP_Search extends AppCompatActivity {
 
         Intent intent = getIntent();
         user = (Patient) intent.getSerializableExtra("Person");
-/*
+        /*
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         AppBarLayout appbar = findViewById(R.id.appbar);
 
@@ -79,39 +80,27 @@ public class SP_Search extends AppCompatActivity {
         //setHasOptionsMenu(true);
 
         listViewServiceProviders = (ListView) findViewById(R.id.providerList);
-        mDatabase = FirebaseDatabase.getInstance().getReference("Person");
+        mDatabase = FirebaseDatabase.getInstance().getReference("Person").child("ServiceProvider");
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 providers.clear();
-                for (DataSnapshot dSnapshot : dataSnapshot.getChildren()) {
-                    for (DataSnapshot ds : dSnapshot.getChildren()) {
-                        if (dSnapshot.getKey().toString().equals("ServiceProvider")) {
-                            ServiceProvider provider = new ServiceProvider(
-                                    ds.child("id").getValue().toString(),
-                                    ds.child("email").getValue().toString(),
-                                    ds.child("password").getValue().toString(),
-                                    ds.child("name").getValue().toString(),
-                                    ds.child("address").getValue().toString(),
-                                    ds.child("phoneNumber").getValue().toString(),
-                                    ds.child("company").getValue().toString(),
-                                    ds.child("description").getValue().toString(),
-                                    Boolean.parseBoolean(ds.child("licensed").getValue().toString()));
-                            for(DataSnapshot serviceSnapshot : ds.child("Services").getChildren()){
-                                Log.i("snaptest",serviceSnapshot.child("role").getValue().toString() + " " + serviceSnapshot.child("name").getValue().toString());
-                                provider.addService(new Service(serviceSnapshot.child("id").getValue().toString(), serviceSnapshot.child("name").getValue().toString(), serviceSnapshot.child("role").getValue().toString()));
-                            }
-                            for(DataSnapshot availabilitySnapshot : ds.child("Availability").getChildren()){
-                                //Log.i("snaptest",serviceSnapshot.child("role").getValue().toString() + " " + serviceSnapshot.child("name").getValue().toString());
-                                provider.addAvailability(availabilitySnapshot.child("day").getValue().toString() + ": " + availabilitySnapshot.child("startTime").getValue().toString() + " - " + availabilitySnapshot.child("endTime").getValue().toString());
-                            }
-                            //provider.setServices(services);
-                            providers.add(provider);
-                        }
-                    }
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    ServiceProvider provider = new ServiceProvider(
+                            ds.child("id").getValue().toString(),
+                            ds.child("email").getValue().toString(),
+                            ds.child("password").getValue().toString(),
+                            ds.child("name").getValue().toString(),
+                            ds.child("address").getValue().toString(),
+                            ds.child("phoneNumber").getValue().toString(),
+                            ds.child("company").getValue().toString(),
+                            ds.child("description").getValue().toString(),
+                            Boolean.parseBoolean(ds.child("licensed").getValue().toString()));
+                    //provider.setServices(services);
+                    providers.add(provider);
                 }
 
-                providerAdapter = new SP_List(SP_Search.this,providers);
+                providerAdapter = new SP_List(SP_Search.this, providers);
                 listViewServiceProviders.setAdapter(providerAdapter);
             }
 
@@ -159,16 +148,53 @@ public class SP_Search extends AppCompatActivity {
                 Boolean hasService;
                 Boolean hasAvailability;
                 for(ServiceProvider i : providers){
+                    mDatabase = FirebaseDatabase.getInstance().getReference("Person").child("ServiceProvider").child(i.getId()).child("Services");
+                    mDatabase.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            services.clear();
+                            for (DataSnapshot ds: dataSnapshot.getChildren())
+                            {
+                                Service service = new Service(ds.child("id").getValue().toString(), ds.child("name").getValue().toString(), ds.child("role").getValue().toString(), ds.child("rate").getValue().toString());
+                                services.add(service);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+                    mDatabase = FirebaseDatabase.getInstance().getReference("Person").child("ServiceProvider").child(i.getId()).child("Availability");
+                    mDatabase.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            availabilities.clear();
+
+                            for (DataSnapshot ds: dataSnapshot.getChildren())
+                            {
+                                Availability Availability = new Availability(ds.child("day").getValue().toString(), ds.child("startTime").getValue().toString(), ds.child("endTime").getValue().toString());
+                                availabilities.add(Availability);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
                     hasService = false;
                     hasAvailability = false;
                     //Queries company name, address, and the services of the company
-                    for(Service s : i.getServices()){
+                    for(Service s : services){
                         Log.i("snaptest", "Service " + s.getName() + " belongs to provider: " + i.getCompany());
                         if(s.getName().toLowerCase().contains(query.toLowerCase()))
                             hasService = true;
                     }
-                    for(String a : i.getAvailabilities()){
-                        if(a.toLowerCase().contains(query.toLowerCase()))
+                    for(Availability a : availabilities){
+                        if(a.getDay().toLowerCase().contains(query.toLowerCase()) || a.getStartTime().toLowerCase().contains(query.toLowerCase()) || a.getDay().toLowerCase().contains(query.toLowerCase()))
                             hasAvailability = true;
                     }
                     if(i.getCompany().toLowerCase().contains(query.toLowerCase()) || i.getAddress().toLowerCase().contains(query.toLowerCase()) || hasService || hasAvailability) {  // i.getDescription().toLowerCase().contains(query.toLowerCase()

@@ -14,14 +14,27 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Locale;
+
+import androidx.annotation.NonNull;
 
 public class SP_List extends ArrayAdapter<ServiceProvider> {
     private Activity context;
     List<ServiceProvider> providers;
     String filter = "";
+    DatabaseReference mDatabase;
+    ArrayList<Service> services;
+    ArrayList<Availability> availabilities;
 
     public SP_List(Activity context, List<ServiceProvider> providers) {
         super(context, R.layout.layout_sp_list, providers);
@@ -77,7 +90,25 @@ public class SP_List extends ArrayAdapter<ServiceProvider> {
         } else
             textViewAddress.setText(itemValue);
 
-        ArrayList<Service> services = provider.getServices();
+        services = new ArrayList<>();
+
+        mDatabase = FirebaseDatabase.getInstance().getReference("Person").child("ServiceProvider").child(provider.getId()).child("Services");
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                services.clear();
+                for (DataSnapshot ds: dataSnapshot.getChildren())
+                {
+                    Service service = new Service(ds.child("id").getValue().toString(), ds.child("name").getValue().toString(), ds.child("role").getValue().toString(), ds.child("rate").getValue().toString());
+                    services.add(service);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         for(Service s : services){
             itemValue = s.getName();
             startPos = itemValue.toLowerCase(Locale.US).indexOf(filter.toLowerCase(Locale.US));
@@ -98,8 +129,34 @@ public class SP_List extends ArrayAdapter<ServiceProvider> {
                     textViewDescription.setText("Service: " + s.getName());
         }
 
-        ArrayList<String> availabilities = provider.getAvailabilities();
-        for(String s : availabilities){
+        availabilities = new ArrayList<>();
+        mDatabase = FirebaseDatabase.getInstance().getReference("Person").child("ServiceProvider").child(provider.getId()).child("Availability");
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                availabilities.clear();
+
+                for (DataSnapshot ds: dataSnapshot.getChildren())
+                {
+                    Availability availability = new Availability(ds.child("day").getValue().toString(), ds.child("startTime").getValue().toString(), ds.child("endTime").getValue().toString());
+                    availabilities.add(availability);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        for(Availability a : availabilities){
+            SimpleDateFormat simpledateformat = new SimpleDateFormat("EEEE");
+            Date dateD = new Date();
+            String selDOW = simpledateformat.format(dateD);
+            String s;
+            if (a.getDay().equals(selDOW))
+                s = a.getDay() + ": " + a.getStartTime() + "-" + a.getEndTime();
+            else
+                s = "Closed today.";
             itemValue = s;
             startPos = itemValue.toLowerCase(Locale.US).indexOf(filter.toLowerCase(Locale.US));
             endPos = startPos + filter.length();

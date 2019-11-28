@@ -92,6 +92,17 @@ public class ServiceProviderInfo extends AppCompatActivity {
             }
         });
 
+        reviewB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent toReview = new Intent(getApplicationContext(), ViewReviews.class);
+                toReview.putExtra("Person", user);
+                toReview.putExtra("ServiceProvider", sp);
+                startActivity(toReview);
+            }
+        });
+        mDatabase = FirebaseDatabase.getInstance().getReference("Person").child("ServiceProvider").child(sp.getId()).child("Reviews");
+
         String name = "Name: " + sp.getName();
         String type = "Type: " + sp.getClass().getSimpleName();
         String email = "Email: " + sp.getEmail();
