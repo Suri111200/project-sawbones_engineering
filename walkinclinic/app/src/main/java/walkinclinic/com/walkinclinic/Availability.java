@@ -1,6 +1,8 @@
 package walkinclinic.com.walkinclinic;
 
-public class Availability {
+import java.io.Serializable;
+
+public class Availability implements Serializable {
 
     private String id;
     private String day;

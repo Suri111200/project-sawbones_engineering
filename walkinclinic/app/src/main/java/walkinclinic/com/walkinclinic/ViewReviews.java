@@ -39,7 +39,7 @@ public class ViewReviews extends AppCompatActivity {
         setContentView(R.layout.activity_view_reviews);
 
         listViewReview = (ListView) findViewById(R.id.reviewList);
-//        overallRating = findViewById(R.id.overallRating);
+        overallRating = findViewById(R.id.overallRating);
 
         reviews = new ArrayList<>();
 

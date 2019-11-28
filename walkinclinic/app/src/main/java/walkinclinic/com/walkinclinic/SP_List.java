@@ -110,7 +110,7 @@ public class SP_List extends ArrayAdapter<ServiceProvider> {
                 s = a.toString();
             //else
             // commented out for now, it will always say closed today. if its monday and the user is searching
-            // for Tuesday to book an appointment that day, it still says closed today 
+            // for Tuesday to book an appointment that day, it still says closed today
             //    s = "Closed today.";
             itemValue = s;
             startPos = itemValue.toLowerCase(Locale.US).indexOf(filter.toLowerCase(Locale.US));
