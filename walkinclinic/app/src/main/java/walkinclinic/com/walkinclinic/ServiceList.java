@@ -43,6 +43,8 @@ public class ServiceList extends ArrayAdapter<Service> {
 
         TextView textViewName = (TextView) listViewItem.findViewById(R.id.textViewName);
         TextView textViewRole = (TextView) listViewItem.findViewById(R.id.textViewRole);
+        TextView textViewRate = (TextView) listViewItem.findViewById(R.id.textViewRate);
+
 
         Service service = services.get(position);
 
@@ -61,6 +63,7 @@ public class ServiceList extends ArrayAdapter<Service> {
             textViewName.setText(itemValue);
 
         textViewRole.setText(String.valueOf(service.getRole()));
+        textViewRate.setText(String.valueOf(service.getRate()));
 
         return listViewItem;
     }

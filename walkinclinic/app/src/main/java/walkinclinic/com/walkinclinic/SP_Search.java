@@ -48,6 +48,7 @@ public class SP_Search extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 
+
         Intent intent = getIntent();
         user = (Patient) intent.getSerializableExtra("Person");
 

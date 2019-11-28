@@ -53,7 +53,7 @@ public class ServiceFragment extends Fragment {
 
                 for (DataSnapshot ds: dataSnapshot.getChildren())
                 {
-                    Service service = new Service(ds.child("id").getValue().toString(), ds.child("name").getValue().toString(), ds.child("role").getValue().toString());
+                    Service service = new Service(ds.child("id").getValue().toString(), ds.child("name").getValue().toString(), ds.child("role").getValue().toString(), ds.child("rate").getValue().toString());
                     services.add(service);
                 }
                 servicesAdapter = new ServiceList(getActivity(), services);

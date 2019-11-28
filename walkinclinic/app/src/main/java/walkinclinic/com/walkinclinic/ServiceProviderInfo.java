@@ -121,7 +121,7 @@ public class ServiceProviderInfo extends AppCompatActivity {
                 yourServices.clear();
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    Service service = new Service(ds.child("id").getValue().toString(), ds.child("name").getValue().toString(), ds.child("role").getValue().toString());
+                    Service service = new Service(ds.child("id").getValue().toString(), ds.child("name").getValue().toString(), ds.child("role").getValue().toString(), ds.child("rate").getValue().toString());
                     yourServices.add(service);
                 }
                 ServiceList servicesAdapter = new ServiceList(ServiceProviderInfo.this, yourServices);
