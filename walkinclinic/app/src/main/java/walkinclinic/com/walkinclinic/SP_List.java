@@ -78,24 +78,25 @@ public class SP_List extends ArrayAdapter<ServiceProvider> {
             textViewAddress.setText(itemValue);
 
         ArrayList<Service> services = provider.getServices();
-            for(Service s : services){
-                itemValue = s.getName();
-                startPos = itemValue.toLowerCase(Locale.US).indexOf(filter.toLowerCase(Locale.US));
-                endPos = startPos + filter.length();
-                    if (startPos != -1) // This should always be true, just a sanity check
-                    {
-                        Spannable spannable = new SpannableString(itemValue);
-                        ColorStateList blueColor = new ColorStateList(new int[][]{new int[]{}}, new int[]{Color.BLUE});
-                        TextAppearanceSpan highlightSpan = new TextAppearanceSpan(null, Typeface.BOLD, -1, blueColor, null);
+        for(Service s : services){
+            itemValue = s.getName();
+            startPos = itemValue.toLowerCase(Locale.US).indexOf(filter.toLowerCase(Locale.US));
+            endPos = startPos + filter.length();
+                if (startPos != -1) // This should always be true, just a sanity check
+                {
+                    Spannable spannable = new SpannableString(itemValue);
+                    ColorStateList blueColor = new ColorStateList(new int[][]{new int[]{}}, new int[]{Color.BLUE});
+                    TextAppearanceSpan highlightSpan = new TextAppearanceSpan(null, Typeface.BOLD, -1, blueColor, null);
 
-                        spannable.setSpan(highlightSpan, startPos, endPos, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                        Spannable test = new SpannableString("Service: ");
+                    spannable.setSpan(highlightSpan, startPos, endPos, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    Spannable test = new SpannableString("Service: ");
 
-                        textViewDescription.setText(TextUtils.concat(test, spannable));
-                    }
-                    else
-                        textViewDescription.setText(itemValue);
-            }
+                    textViewDescription.setText(TextUtils.concat(test, spannable));
+                    break;
+                }
+                else
+                    textViewDescription.setText("Service: " + s.getName());
+        }
 
         ArrayList<String> availabilities = provider.getAvailabilities();
         for(String s : availabilities){
@@ -111,9 +112,10 @@ public class SP_List extends ArrayAdapter<ServiceProvider> {
                 spannable.setSpan(highlightSpan, startPos, endPos, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
                 textViewAvailability.setText(spannable);
+                break;
             }
             else
-                textViewAvailability.setText(itemValue);
+                textViewAvailability.setText(s);
         }
 
 
