@@ -73,7 +73,7 @@ public class Availabilities extends AppCompatActivity {
 
                 for (DataSnapshot ds: dataSnapshot.getChildren())
                 {
-                    Availability Availability = new Availability(ds.child("id").getValue().toString(), ds.child("day").getValue().toString(), ds.child("startTime").getValue().toString(), ds.child("endTime").getValue().toString());
+                    Availability Availability = new Availability(ds.child("day").getValue().toString(), ds.child("startTime").getValue().toString(), ds.child("endTime").getValue().toString());
                     availabilities.add(Availability);
                 }
                 AvailabilityList AvailabilityAdapter = new AvailabilityList(Availabilities.this, availabilities);

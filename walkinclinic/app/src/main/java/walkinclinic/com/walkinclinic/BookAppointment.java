@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class BookAppointment extends AppCompatActivity {
@@ -32,8 +33,11 @@ public class BookAppointment extends AppCompatActivity {
     ServiceProvider sp;
 
     String date;
+    String selDOW;
 
     int count;
+    ArrayList<String> availDays;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,8 @@ public class BookAppointment extends AppCompatActivity {
         dateSelected = findViewById(R.id.selectedDate);
 
         count = 0;
+
+        availDays = new ArrayList<>();
 
         Intent intent = getIntent();
         user = (Patient) intent.getSerializableExtra("Person");
@@ -67,7 +73,31 @@ public class BookAppointment extends AppCompatActivity {
                     date = (month + 1) + "-" + dayOfMonth + "-" + year;
                 }
 
+                SimpleDateFormat simpledateformat = new SimpleDateFormat("EEEE");
+                Date dateD = new Date(year, month, dayOfMonth-1);
+                selDOW = simpledateformat.format(dateD);
+                //Toast.makeText(BookAppointment.this, selDOW, Toast.LENGTH_LONG).show();
+
                 dateSelected.setText(date);
+            }
+        });
+
+        DatabaseReference availabilitiesAtClinic = FirebaseDatabase.getInstance().getReference("Person").child("ServiceProvider").child(sp.getId()).child("Availability");
+        availabilitiesAtClinic.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                availDays.clear();
+
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    availDays.add(ds.child("day").getValue().toString());
+                }
+
+                //Toast.makeText(BookAppointment.this, availDays.toString(), Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
 
@@ -75,6 +105,7 @@ public class BookAppointment extends AppCompatActivity {
         appointmentsAtClinic.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                count = 0;
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     count++;
@@ -90,7 +121,18 @@ public class BookAppointment extends AppCompatActivity {
         selectDateB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (count == 16)
+
+                boolean notAvailable = true;
+                for (int i = 0; i < availDays.size(); i++)
+                {
+                    Toast.makeText(BookAppointment.this, availDays.get(i), Toast.LENGTH_LONG).show();
+                    if (availDays.get(i).equals(selDOW))
+                        notAvailable = false;
+                }
+
+                if (notAvailable)
+                    Toast.makeText(BookAppointment.this, "The clinic is closed on this day.", Toast.LENGTH_LONG).show();
+                else if (count == 16)
                     Toast.makeText(BookAppointment.this, "Day is Full. Please select another day.", Toast.LENGTH_LONG).show();
                 else {
                     Intent toBookAppointment = new Intent(getApplicationContext(), AppointmentTimeSelect.class);
