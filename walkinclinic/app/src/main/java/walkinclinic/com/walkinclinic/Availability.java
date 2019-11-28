@@ -30,6 +30,11 @@ public class Availability {
         return id;
     }
 
+    @Override
+    public String toString(){
+        return day + ": " + this.startTime + " - " + this.endTime;
+    }
+
     public void setDay(String day) {
         this.day = day;
     }
