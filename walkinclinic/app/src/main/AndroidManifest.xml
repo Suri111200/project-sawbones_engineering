@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light">
-        <activity android:name=".AppointmentTimeSelect"></activity>
+        <activity android:name=".CheckIn"></activity>
+        <activity android:name=".AppointmentTimeSelect" />
         <activity android:name=".BookAppointment" />
         <activity android:name=".ServiceProviderInfo" />
         <activity android:name=".AddAvailabilities" />

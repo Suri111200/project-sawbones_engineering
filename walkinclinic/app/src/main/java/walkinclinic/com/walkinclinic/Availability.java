@@ -7,9 +7,8 @@ public class Availability {
     private String startTime;
     private String endTime;
 
-    public Availability(String id, String day, String startTime, String endTime)
+    public Availability(String day, String startTime, String endTime)
     {
-        this.id = id;
         this.day= day;
         this.startTime = startTime;
         this.endTime = endTime;
