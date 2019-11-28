@@ -99,7 +99,7 @@ public class SP_Search extends AppCompatActivity {
                                     Boolean.parseBoolean(ds.child("licensed").getValue().toString()));
                             for(DataSnapshot serviceSnapshot : ds.child("Services").getChildren()){
                                 Log.i("snaptest",serviceSnapshot.child("role").getValue().toString() + " " + serviceSnapshot.child("name").getValue().toString());
-                                provider.addService(new Service(serviceSnapshot.child("id").getValue().toString(), serviceSnapshot.child("name").getValue().toString(), serviceSnapshot.child("role").getValue().toString()));
+                                provider.addService(new Service(serviceSnapshot.child("id").getValue().toString(), serviceSnapshot.child("name").getValue().toString(), serviceSnapshot.child("role").getValue().toString(), serviceSnapshot.child("rate").getValue().toString()));
                             }
                             for(DataSnapshot availabilitySnapshot : ds.child("Availability").getChildren()){
                                 //Log.i("snaptest",serviceSnapshot.child("role").getValue().toString() + " " + serviceSnapshot.child("name").getValue().toString());

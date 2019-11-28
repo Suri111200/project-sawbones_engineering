@@ -6,13 +6,13 @@ public class Service {
     private String name;
     private String role;
     private String rate;
-
+/*
     public Service (String id, String name, String role)
     {
         this.id = id;
         this.name = name;
         this.role = role;
-    }
+    }*/
 
     public Service (String id, String name, String role, String rate)
     {
