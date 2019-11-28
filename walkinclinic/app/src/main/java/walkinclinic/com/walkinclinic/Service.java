@@ -1,5 +1,7 @@
 package walkinclinic.com.walkinclinic;
 
+import java.io.Serializable;
+
 public class Service implements Serializable{
 
     private String id;

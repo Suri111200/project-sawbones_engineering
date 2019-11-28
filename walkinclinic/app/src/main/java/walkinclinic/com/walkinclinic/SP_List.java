@@ -122,7 +122,7 @@ public class SP_List extends ArrayAdapter<ServiceProvider> {
                     spannable.setSpan(highlightSpan, startPos, endPos, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     Spannable test = new SpannableString("Service: ");
                     Spannable rate = new SpannableString(", Rate: $" + s.getRate() + "/hour");
-                    textViewDescription.setText(TextUtils.concat(test, spannable, rate);
+                    textViewDescription.setText(TextUtils.concat(test, spannable, rate));
                     break;
                 }
                 else

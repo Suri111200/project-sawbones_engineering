@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,6 +35,8 @@ public class ViewAppointments extends AppCompatActivity {
 
         listViewAppointments = (ListView) findViewById(R.id.appointmentList);
 
+        final TextView title = findViewById(R.id.title);
+
         appointments = new ArrayList<>();
 
         Intent intent = getIntent();
@@ -41,22 +44,25 @@ public class ViewAppointments extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance().getReference("Person").child("Patient").child(patient.getId()).child("Appointments");
 
+        Toast.makeText(ViewAppointments.this, patient.getId(), Toast.LENGTH_LONG).show();
+
 
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 appointments.clear();
-                for (DataSnapshot ds: dataSnapshot.getChildren())
-                {
-                    for (DataSnapshot date : ds.getChildren()) {
-                        Patient patient = (Patient) date.child("patient").getValue();
-                        ServiceProvider sp = (ServiceProvider) date.child("serviceProvider").getValue();
-                        Appointment appointment = new Appointment(date.child("id").getValue().toString(), date.child("date").getValue().toString(), date.child("time").getValue().toString(), patient, sp);
-                        appointments.add(appointment);
-                    }
-                }
-                AppointmentList reviewAdapter = new AppointmentList(ViewAppointments.this, appointments);
-                listViewAppointments.setAdapter(reviewAdapter);
+//                for (DataSnapshot ds: dataSnapshot.getChildren())
+//                {
+////                    title.setText(ds.child("-Lugu4H59GOY2tTgDM_f").getValue().toString());
+////                    for (DataSnapshot date : ds.getChildren()) {
+////                        Patient patient = (Patient) date.child("patient").getValue();
+////                        ServiceProvider sp = (ServiceProvider) date.child("serviceProvider").getValue();
+////                        Appointment appointment = new Appointment(date.child("id").getValue().toString(), date.child("date").getValue().toString(), date.child("time").getValue().toString(), patient, sp);
+////                        appointments.add(appointment);
+////                    }
+//                }
+//                AppointmentList reviewAdapter = new AppointmentList(ViewAppointments.this, appointments);
+//                listViewAppointments.setAdapter(reviewAdapter);
             }
 
             @Override
@@ -65,21 +71,21 @@ public class ViewAppointments extends AppCompatActivity {
             }
         });
 
-        listViewAppointments.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Appointment appointment = appointments.get(i);
-                Patient user = appointment.getPatient();
-                ServiceProvider sp = appointment.getServiceProvider();
-                mDatabase = FirebaseDatabase.getInstance().getReference("Person").child("ServiceProvider").child(sp.getId()).child("CheckedIn");
-                mDatabase.child(user.getId()).setValue(user);
-
-                Intent toCheckIn = new Intent(getApplicationContext(), CheckIn.class);
-                toCheckIn.putExtra("Person", user);
-                toCheckIn.putExtra("ServiceProvider", sp);
-                startActivity(toCheckIn);
-                return true;
-            }
-        });
+//        listViewAppointments.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//            @Override
+//            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Appointment appointment = appointments.get(i);
+//                Patient user = appointment.getPatient();
+//                ServiceProvider sp = appointment.getServiceProvider();
+//                mDatabase = FirebaseDatabase.getInstance().getReference("Person").child("ServiceProvider").child(sp.getId()).child("CheckedIn");
+//                mDatabase.child(user.getId()).setValue(user);
+//
+//                Intent toCheckIn = new Intent(getApplicationContext(), CheckIn.class);
+//                toCheckIn.putExtra("Person", user);
+//                toCheckIn.putExtra("ServiceProvider", sp);
+//                startActivity(toCheckIn);
+//                return true;
+//            }
+//        });
     }
 }
