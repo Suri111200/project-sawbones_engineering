@@ -74,6 +74,7 @@ public class SP_Search extends AppCompatActivity {
 
 
         providers = new ArrayList<>();
+        services = new ArrayList();
         //setHasOptionsMenu(true);
 
         listViewServiceProviders = (ListView) findViewById(R.id.providerList);
@@ -82,7 +83,6 @@ public class SP_Search extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 providers.clear();
-
                 for (DataSnapshot dSnapshot : dataSnapshot.getChildren()) {
                     for (DataSnapshot ds : dSnapshot.getChildren()) {
                         if (dSnapshot.getKey().toString().equals("ServiceProvider")) {
@@ -96,8 +96,12 @@ public class SP_Search extends AppCompatActivity {
                                     ds.child("company").getValue().toString(),
                                     ds.child("description").getValue().toString(),
                                     Boolean.parseBoolean(ds.child("licensed").getValue().toString()));
+                            for(DataSnapshot serviceSnapshot : ds.child("Services").getChildren()){
+                                Log.i("snaptest",serviceSnapshot.child("role").getValue().toString() + " " + serviceSnapshot.child("name").getValue().toString());
+                                provider.addService(new Service(serviceSnapshot.child("id").getValue().toString(), serviceSnapshot.child("name").getValue().toString(), serviceSnapshot.child("role").getValue().toString()));
+                            }
+                            //provider.setServices(services);
                             providers.add(provider);
-                            Log.i("testing",provider.getCompany());
                         }
                     }
                 }
@@ -124,8 +128,8 @@ public class SP_Search extends AppCompatActivity {
         });
     }
 
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.search_provider,menu);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.search_provider, menu);
         MenuItem searchClinicMenu = menu.findItem(R.id.searchClinics);
         SearchView searchView = (SearchView) searchClinicMenu.getActionView();
 
@@ -145,11 +149,18 @@ public class SP_Search extends AppCompatActivity {
             }
 
             @Override
-            public boolean onQueryTextChange(String query){
+            public boolean onQueryTextChange(String query) {
                 List<ServiceProvider> results = new ArrayList<>();
-                for(ServiceProvider i: providers){
+                Boolean hasService;
+                for(ServiceProvider i : providers){
+                    hasService = false;
                     //Queries company name, address, and the services of the company
-                    if(i.getCompany().toLowerCase().contains(query.toLowerCase()) || i.getAddress().toLowerCase().contains(query.toLowerCase()) || hasService(i, query)) {  // i.getDescription().toLowerCase().contains(query.toLowerCase()
+                    for(Service s : i.getServices()){
+                        Log.i("snaptest", "Service " + s.getName() + " belongs to provider: " + i.getCompany());
+                        if(s.getName().toLowerCase().contains(query))
+                            hasService = true;
+                    }
+                    if(i.getCompany().toLowerCase().contains(query.toLowerCase()) || i.getAddress().toLowerCase().contains(query.toLowerCase()) || hasService) {  // i.getDescription().toLowerCase().contains(query.toLowerCase()
                         results.add(i);
                     }
                 }
@@ -157,63 +168,6 @@ public class SP_Search extends AppCompatActivity {
                 return false;
             }
         });
-
         return super.onCreateOptionsMenu(menu);
-    }
-
-    private void getServices(ServiceProvider provider){
-        mDatabase = FirebaseDatabase.getInstance().getReference("Person").child("ServiceProvider").child(provider.getId()).child("Services");
-        mDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ArrayList<Service> results = new ArrayList<>();
-                results.clear();
-                for (DataSnapshot ds: dataSnapshot.getChildren())
-                {
-                    Service service = new Service(ds.child("id").getValue().toString(), ds.child("name").getValue().toString(), ds.child("role").getValue().toString());
-                    Log.i("getServices",service.getName() +" was retrieved and added to the list");
-                    results.add(service);
-                    if(results.size()>0)
-                        //this also works
-                        Log.i("getServices",results.get(0).getName() + " is the element at results(0)");
-                    if(results.size()>1)
-                        //works
-                        Log.i("getServices",results.get(1).getName() + " is the element at results(1)");
-                }
-                updateServices(results);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
-    }
-
-    private void updateServices(ArrayList<Service> results){
-        this.services = results;
-        if(services.size()>1) {
-            //this works!
-            Log.i("updateServices", services.get(0).getName() + " is in services");
-            Log.i("updateServices", services.get(1).getName() + " is in services");
-            }
-        }
-
-    private Boolean hasService(ServiceProvider provider, String query){
-        getServices(provider);
-        Log.i("hasService","hasService runs");
-        if(services != null) {
-            // TODO this prints 0 as the size which should not be the case
-            Log.i("hasService","First if statement, size of services is: " + services.size());
-            //if (services.size() > 0) {
-            //Log.i("hasService", "Second if statement");
-                for (Service i : services) {
-                    Log.i("hasService", "Service name " + i.getName() + ", Query:" + query);
-                    if (i.getName().toLowerCase().contains(query)) {
-                        Log.i("hasService", "Returns true.");
-                        return true;
-                    }
-                }
-            //}
-        }
-        return false;
     }
 }
