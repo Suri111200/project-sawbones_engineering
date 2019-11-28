@@ -1,6 +1,6 @@
 package walkinclinic.com.walkinclinic;
 
-public class Service {
+public class Service implemente Serializable{
 
     private String id;
     private String name;
