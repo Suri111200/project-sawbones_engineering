@@ -163,11 +163,11 @@ public class SP_Search extends AppCompatActivity {
                     //Queries company name, address, and the services of the company
                     for(Service s : i.getServices()){
                         Log.i("snaptest", "Service " + s.getName() + " belongs to provider: " + i.getCompany());
-                        if(s.getName().toLowerCase().contains(query))
+                        if(s.getName().toLowerCase().contains(query.toLowerCase()))
                             hasService = true;
                     }
                     for(String a : i.getAvailabilities()){
-                        if(a.toLowerCase().contains(query))
+                        if(a.toLowerCase().contains(query.toLowerCase()))
                             hasAvailability = true;
                     }
                     if(i.getCompany().toLowerCase().contains(query.toLowerCase()) || i.getAddress().toLowerCase().contains(query.toLowerCase()) || hasService || hasAvailability) {  // i.getDescription().toLowerCase().contains(query.toLowerCase()
