@@ -114,8 +114,9 @@ public class ServicesAdmin extends AppCompatActivity {
                     editTextRole.setText("");
                     editTextRate.setText("");
                     b.dismiss();
+                }else {
+                    Toast.makeText(ServicesAdmin.this, "Make sure all fields are filled.", Toast.LENGTH_LONG).show();
                 }
-                Toast.makeText(ServicesAdmin.this, "Make sure all fields are filled.", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -147,8 +148,9 @@ public class ServicesAdmin extends AppCompatActivity {
                 if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(role) && !TextUtils.isEmpty(rate)) {
                     updateService(serviceId, name, role, rate);
                     b.dismiss();
+                }else {
+                    Toast.makeText(ServicesAdmin.this, "Make sure all fields are filled.", Toast.LENGTH_LONG).show();
                 }
-                Toast.makeText(ServicesAdmin.this, "Make sure all fields are filled.", Toast.LENGTH_LONG).show();
             }
         });
 
