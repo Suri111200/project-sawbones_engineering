@@ -100,6 +100,10 @@ public class SP_Search extends AppCompatActivity {
                                 Log.i("snaptest",serviceSnapshot.child("role").getValue().toString() + " " + serviceSnapshot.child("name").getValue().toString());
                                 provider.addService(new Service(serviceSnapshot.child("id").getValue().toString(), serviceSnapshot.child("name").getValue().toString(), serviceSnapshot.child("role").getValue().toString()));
                             }
+                            for(DataSnapshot availabilitySnapshot : ds.child("Availability").getChildren()){
+                                //Log.i("snaptest",serviceSnapshot.child("role").getValue().toString() + " " + serviceSnapshot.child("name").getValue().toString());
+                                provider.addAvailability(availabilitySnapshot.child("day").getValue().toString() + ": " + availabilitySnapshot.child("startTime").getValue().toString() + " - " + availabilitySnapshot.child("endTime").getValue().toString());
+                            }
                             //provider.setServices(services);
                             providers.add(provider);
                         }
@@ -152,15 +156,21 @@ public class SP_Search extends AppCompatActivity {
             public boolean onQueryTextChange(String query) {
                 List<ServiceProvider> results = new ArrayList<>();
                 Boolean hasService;
+                Boolean hasAvailability;
                 for(ServiceProvider i : providers){
                     hasService = false;
+                    hasAvailability = false;
                     //Queries company name, address, and the services of the company
                     for(Service s : i.getServices()){
                         Log.i("snaptest", "Service " + s.getName() + " belongs to provider: " + i.getCompany());
                         if(s.getName().toLowerCase().contains(query))
                             hasService = true;
                     }
-                    if(i.getCompany().toLowerCase().contains(query.toLowerCase()) || i.getAddress().toLowerCase().contains(query.toLowerCase()) || hasService) {  // i.getDescription().toLowerCase().contains(query.toLowerCase()
+                    for(String a : i.getAvailabilities()){
+                        if(a.toLowerCase().contains(query))
+                            hasAvailability = true;
+                    }
+                    if(i.getCompany().toLowerCase().contains(query.toLowerCase()) || i.getAddress().toLowerCase().contains(query.toLowerCase()) || hasService || hasAvailability) {  // i.getDescription().toLowerCase().contains(query.toLowerCase()
                         results.add(i);
                     }
                 }

@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.text.style.TextAppearanceSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +42,8 @@ public class SP_List extends ArrayAdapter<ServiceProvider> {
 
         TextView textViewName = (TextView) listViewItem.findViewById(R.id.textViewName);
         TextView textViewAddress = (TextView) listViewItem.findViewById(R.id.textViewAddress);
-        TextView textViewDescription = (TextView) listViewItem.findViewById(R.id.textViewDescription);
+        TextView textViewDescription = (TextView) listViewItem.findViewById(R.id.textViewDescription); //this is now a service
+        TextView textViewAvailability = (TextView) listViewItem.findViewById(R.id.textViewAvailability);
 
         ServiceProvider provider = providers.get(position);
 
@@ -75,19 +77,47 @@ public class SP_List extends ArrayAdapter<ServiceProvider> {
         } else
             textViewAddress.setText(itemValue);
 
-        itemValue = provider.getDescription().toString();
-        startPos = itemValue.toLowerCase(Locale.US).indexOf(filter.toLowerCase(Locale.US));
-        endPos = startPos + filter.length();
-        if (startPos != -1) // This should always be true, just a sanity check
-        {
-            Spannable spannable = new SpannableString(itemValue);
-            ColorStateList blueColor = new ColorStateList(new int[][]{new int[]{}}, new int[]{Color.BLUE});
-            TextAppearanceSpan highlightSpan = new TextAppearanceSpan(null, Typeface.BOLD, -1, blueColor, null);
+        ArrayList<Service> services = provider.getServices();
+            for(Service s : services){
+                itemValue = s.getName();
+                startPos = itemValue.toLowerCase(Locale.US).indexOf(filter.toLowerCase(Locale.US));
+                endPos = startPos + filter.length();
+                    if (startPos != -1) // This should always be true, just a sanity check
+                    {
+                        Spannable spannable = new SpannableString(itemValue);
+                        ColorStateList blueColor = new ColorStateList(new int[][]{new int[]{}}, new int[]{Color.BLUE});
+                        TextAppearanceSpan highlightSpan = new TextAppearanceSpan(null, Typeface.BOLD, -1, blueColor, null);
 
-            spannable.setSpan(highlightSpan, startPos, endPos, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            textViewDescription.setText(spannable);
-        } else
-            textViewDescription.setText(itemValue);
+                        spannable.setSpan(highlightSpan, startPos, endPos, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        Spannable test = new SpannableString("Service: ");
+
+                        textViewDescription.setText(TextUtils.concat(test, spannable));
+                    }
+                    else
+                        textViewDescription.setText(itemValue);
+            }
+
+        ArrayList<String> availabilities = provider.getAvailabilities();
+        for(String s : availabilities){
+            itemValue = s;
+            startPos = itemValue.toLowerCase(Locale.US).indexOf(filter.toLowerCase(Locale.US));
+            endPos = startPos + filter.length();
+            if (startPos != -1) // This should always be true, just a sanity check
+            {
+                Spannable spannable = new SpannableString(itemValue);
+                ColorStateList blueColor = new ColorStateList(new int[][]{new int[]{}}, new int[]{Color.BLUE});
+                TextAppearanceSpan highlightSpan = new TextAppearanceSpan(null, Typeface.BOLD, -1, blueColor, null);
+
+                spannable.setSpan(highlightSpan, startPos, endPos, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                textViewAvailability.setText(spannable);
+            }
+            else
+                textViewAvailability.setText(itemValue);
+        }
+
+
+
         return listViewItem;
     }
 
