@@ -4,18 +4,22 @@ import java.io.Serializable;
 
 public class Review implements Serializable {
     String id;
-    private String reviewValue;
+    Patient user;
+    private Float reviewValue;
     private String reviewContent;
 
-    public Review(String id, String reviewValue, String reviewContent) {
+    public Review(String id, Patient user, Float reviewValue, String reviewContent) {
         this.id = id;
+        this.user = user; //ensures only one review per user per clinic
         this.reviewValue = reviewValue;
         this.reviewContent = reviewContent;
     }
 
     public String getId(){ return this.id; }
 
-    public String getReviewValue() { return this.reviewValue; }
+    public Patient getUser(){ return this.user; }
+
+    public Float getReviewValue() { return this.reviewValue; }
 
     public String getReviewContent() { return this.reviewContent; }
 }

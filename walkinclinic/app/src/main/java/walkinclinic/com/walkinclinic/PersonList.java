@@ -14,7 +14,7 @@ public class PersonList extends ArrayAdapter<Person> {
     List<Person> users;
 
     public PersonList(Activity context, List<Person> users) {
-        super(context, R.layout.layout_user_list, users);
+        super(context, R.layout.layout_employee_list, users);
         this.context = context;
         this.users =users;
     }
@@ -22,12 +22,14 @@ public class PersonList extends ArrayAdapter<Person> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
-        View listViewItem = inflater.inflate(R.layout.layout_user_list, null, true);
+        View listViewItem = inflater.inflate(R.layout.layout_employee_list, null, true);
 
         TextView textViewName = (TextView) listViewItem.findViewById(R.id.textViewName);
+        //TextView textViewRole = (TextView) listViewItem.findViewById(R.id.textViewRole);
 
         Person person = users.get(position);
         textViewName.setText(person.getClass().getSimpleName() + ": " + person.getName());
+        //textViewRole.setText(String.valueOf(employee.getRole()));
         return listViewItem;
     }
 }

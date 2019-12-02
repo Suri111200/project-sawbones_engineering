@@ -195,7 +195,7 @@ public class AddAvailabilities extends AppCompatActivity {
 
     private void updateAvailability(String id, String startTime, String endTime) {
 
-        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("Person").child("ServiceProvider").child(user.getId()).child("Availability").child(day);
+        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("Person").child("ServiceProvider").child(user.getId()).child("Availability").child(id);
         Toast.makeText(getApplicationContext(), id, Toast.LENGTH_LONG).show();
 
 
@@ -215,7 +215,7 @@ public class AddAvailabilities extends AppCompatActivity {
             day = rb7.getText().toString();
         if (hodstart <= hodend && minstart < minend) {
             if (!TextUtils.isEmpty(day) && !TextUtils.isEmpty(startTime) && !day.equals("") && !startTime.equals(endTime)) {
-                Availability availability = new Availability(day, startTime, endTime);
+                Availability availability = new Availability(id, day, startTime, endTime);
                 dR.setValue(availability);
                 Toast.makeText(getApplicationContext(), "Availability updated", Toast.LENGTH_LONG).show();
             } else
@@ -246,10 +246,11 @@ public class AddAvailabilities extends AppCompatActivity {
 
         if (id.equals("")) {
             if (!TextUtils.isEmpty(day) && !TextUtils.isEmpty(startTime) && !day.equals("") && !startTime.equals(endTime)) {
+                String new_id = dR.push().getKey();
 
-                Availability avail = new Availability(day, startTime, endTime);
+                Availability avail = new Availability(new_id, day, startTime, endTime);
 
-                dR.child(day).setValue(avail);
+                dR.child(new_id).setValue(avail);
 
                 Toast.makeText(this, "Availability added", Toast.LENGTH_LONG).show();
             } else {

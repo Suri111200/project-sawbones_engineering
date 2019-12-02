@@ -43,14 +43,14 @@ public class ProfileAdmin extends AppCompatActivity {
             }
         });
 
-
+        /*
         buttonToUsers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 toUsers();
             }
         });
-
+        */
     }
 
     public void toServices ()
@@ -60,11 +60,12 @@ public class ProfileAdmin extends AppCompatActivity {
         toServices.putExtra("Person", user);
         startActivity(toServices);
     }
-
-    public void toUsers () {
+    /*
+    public void toUsers ()
+    {
         //Toast.makeText(Welcome.this, user.getClass().getSimpleName(), Toast.LENGTH_LONG).show();
-        Intent toUsers = new Intent(this, UsersAdmin.class);
+        Intent toUsers = new Intent(this, EmployeesAdmin.class);
         toUsers.putExtra("Person", user);
         startActivity(toUsers);
-    }
+    */
 }

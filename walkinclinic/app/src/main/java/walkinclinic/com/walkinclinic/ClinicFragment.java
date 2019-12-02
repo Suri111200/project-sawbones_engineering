@@ -1,6 +1,5 @@
 package walkinclinic.com.walkinclinic;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -36,8 +34,6 @@ public class ClinicFragment extends Fragment {
     private ListView listViewServiceProviders;
     private SearchView searchView;
 
-    Patient user;
-
     public ClinicFragment() {
         // Required empty public constructor
     }
@@ -49,9 +45,6 @@ public class ClinicFragment extends Fragment {
         setHasOptionsMenu(true);
 
         listViewServiceProviders = (ListView) view.findViewById(R.id.providerList);
-
-        Bundle args = getArguments();
-        user = (Patient) args.getSerializable("Person");
 
         mDatabase = FirebaseDatabase.getInstance().getReference("Person");
         mDatabase.addValueEventListener(new ValueEventListener() {
@@ -91,13 +84,9 @@ public class ClinicFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //TODO: Open clinic profile
-                ServiceProvider provider = providers.get(i);
-                Intent toProfileClass = new Intent(adapterView.getContext(), ServiceProviderInfo.class);
-                toProfileClass.putExtra("Person", user);
-                toProfileClass.putExtra("ServiceProvider", provider);
-                startActivity(toProfileClass);
             }
         });
+
         return view;
     }
     @Override

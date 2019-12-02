@@ -66,11 +66,10 @@ public class ServicesAdmin extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 services.clear();
+
                 for (DataSnapshot ds: dataSnapshot.getChildren())
                 {
-
-                    Service service = new Service(ds.child("id").getValue().toString(), ds.child("name").getValue().toString(), ds.child("role").getValue().toString(), ds.child("rate").getValue().toString());
-
+                    Service service = new Service(ds.child("id").getValue().toString(), ds.child("name").getValue().toString(), ds.child("role").getValue().toString());
                     services.add(service);
                 }
                 ServiceList servicesAdapter = new ServiceList(ServicesAdmin.this, services);
@@ -82,8 +81,6 @@ public class ServicesAdmin extends AppCompatActivity {
 
             }
         });
-
-
     }
 
     private void showAddServiceDialog() {
@@ -95,7 +92,6 @@ public class ServicesAdmin extends AppCompatActivity {
 
         final EditText editTextName = (EditText) dialogView.findViewById(R.id.editTextName);
         final EditText editTextRole  = (EditText) dialogView.findViewById(R.id.editTextRole);
-        final EditText editTextRate = (EditText) dialogView.findViewById(R.id.editTextRate);
         final Button buttonAddService = (Button) dialogView.findViewById(R.id.finalAddAvail);
 
         dialogBuilder.setTitle("Add Service");
@@ -107,16 +103,13 @@ public class ServicesAdmin extends AppCompatActivity {
             public void onClick(View view) {
                 String name = editTextName.getText().toString().trim();
                 String role = editTextRole.getText().toString();
-                String rate = editTextRate.getText().toString();
-                if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(role) && !TextUtils.isEmpty(rate)) {
-                    addService(name, role, rate);
+                if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(role)) {
+                    addService(name, role);
                     editTextName.setText("");
                     editTextRole.setText("");
-                    editTextRate.setText("");
                     b.dismiss();
-                }else {
-                    Toast.makeText(ServicesAdmin.this, "Make sure all fields are filled.", Toast.LENGTH_LONG).show();
                 }
+                Toast.makeText(ServicesAdmin.this, "Make sure all fields are filled.", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -130,8 +123,6 @@ public class ServicesAdmin extends AppCompatActivity {
 
         final EditText editTextName = (EditText) dialogView.findViewById(R.id.editTextName);
         final EditText editTextRole  = (EditText) dialogView.findViewById(R.id.editTextRole);
-        final EditText editTextRate  = (EditText) dialogView.findViewById(R.id.editTextRate);
-
         final Button buttonUpdate = (Button) dialogView.findViewById(R.id.buttonUpdateProduct);
         final Button buttonDelete = (Button) dialogView.findViewById(R.id.buttonDeleteProduct);
 
@@ -144,13 +135,11 @@ public class ServicesAdmin extends AppCompatActivity {
             public void onClick(View view) {
                 String name = editTextName.getText().toString().trim();
                 String role = editTextRole.getText().toString();
-                String rate = editTextRate.getText().toString();
-                if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(role) && !TextUtils.isEmpty(rate)) {
-                    updateService(serviceId, name, role, rate);
+                if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(role)) {
+                    updateService(serviceId, name, role);
                     b.dismiss();
-                }else {
-                    Toast.makeText(ServicesAdmin.this, "Make sure all fields are filled.", Toast.LENGTH_LONG).show();
                 }
+                Toast.makeText(ServicesAdmin.this, "Make sure all fields are filled.", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -163,11 +152,11 @@ public class ServicesAdmin extends AppCompatActivity {
         });
     }
 
-    private void updateService(String id, String name, String role, String rate) {
+    private void updateService(String id, String name, String role) {
 
         DatabaseReference dR = FirebaseDatabase.getInstance().getReference("Service").child(id);
 
-        Service service = new Service(id, name, role, rate);
+        Service service = new Service(id, name, role);
         dR.setValue(service);
 
         Toast.makeText(getApplicationContext(), "Service updated", Toast.LENGTH_LONG).show();
@@ -182,13 +171,13 @@ public class ServicesAdmin extends AppCompatActivity {
         return true;
     }
 
-    private void addService(String name, String role, String rate ) {
+    private void addService(String name, String role) {
 
-        if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(role) && !TextUtils.isEmpty(rate))
+        if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(role))
         {
             String id = mDatabase.push().getKey();
 
-            Service service = new Service (id, name, role, rate);
+            Service service = new Service (id, name, role);
 
             mDatabase.child(id).setValue(service);
 

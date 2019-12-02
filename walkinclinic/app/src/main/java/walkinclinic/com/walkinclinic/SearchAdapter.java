@@ -1,7 +1,5 @@
 package walkinclinic.com.walkinclinic;
 
-import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -10,23 +8,16 @@ public class SearchAdapter extends FragmentPagerAdapter {
 
     private int numOfTabs;
 
-    Person user;
-
-    SearchAdapter(FragmentManager fragmentManager, int numOfTabs, Person user) {
+    SearchAdapter(FragmentManager fragmentManager, int numOfTabs) {
         super(fragmentManager);
         this.numOfTabs = numOfTabs;
-        this.user = user;
     }
 
     @Override
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                ClinicFragment clinicF = new ClinicFragment();
-                Bundle args = new Bundle();
-                args.putSerializable("Person", user);
-                clinicF.setArguments(args);
-                return clinicF;
+                return new ClinicFragment();
             case 1:
                 return new ServiceFragment();
         }

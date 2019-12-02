@@ -91,6 +91,13 @@ public class SignIn extends AppCompatActivity {
                            String name = ds.child("name").getValue().toString();
                            users.add(new Patient(id, email, password, name));
                         }
+                        for (DataSnapshot ds : dataSnapshot.child("Employee").getChildren()) {
+                            String id = ds.child("id").getValue().toString();
+                            String email = ds.child("email").getValue().toString();
+                            String password = ds.child("password").getValue().toString();
+                            String name = ds.child("name").getValue().toString();
+                            //users.add(new Employee(id, email, password, name));
+                        }
                         for (DataSnapshot ds : dataSnapshot.child("Admin").getChildren()) {
                             String id = ds.child("id").getValue().toString();
                             String email = ds.child("email").getValue().toString();

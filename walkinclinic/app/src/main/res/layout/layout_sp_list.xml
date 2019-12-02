@@ -26,19 +26,9 @@
         android:id="@+id/textViewDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="This clinic has no services listed"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:textSize="15sp"
+        android:hint="This clinic has no description"
         android:text=""
-         />
-
-    <TextView
-        android:id="@+id/textViewAvailability"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:text=""
-        android:textSize="15sp"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-        android:hint="This clinic has no availability listed" />
+        android:paddingBottom="5dp"/>
 </LinearLayout>

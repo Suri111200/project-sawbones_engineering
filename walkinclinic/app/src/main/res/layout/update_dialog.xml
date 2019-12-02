@@ -17,14 +17,6 @@
         android:layout_below="@id/editTextName"
         android:hint="Enter Role" />
 
-    <EditText
-        android:id="@+id/editTextRate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Enter R8ate"
-        android:inputType="number" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

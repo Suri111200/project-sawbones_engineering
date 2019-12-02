@@ -28,7 +28,7 @@
             android:id="@+id/radioButton2"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
-            android:text="Tuesday" />
+            android:text="Tueday" />
 
         <RadioButton
             android:id="@+id/radioButton3"
