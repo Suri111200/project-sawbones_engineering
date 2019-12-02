@@ -17,6 +17,7 @@ public class ProfileBasic extends AppCompatActivity {
     Patient user;
 
     Button buttonToSearch;
+    Button buttonToAppointments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
