@@ -1,15 +1,16 @@
 package walkinclinic.com.walkinclinic;
 
-public class Availability {
+import java.io.Serializable;
+
+public class Availability implements Serializable {
 
     private String id;
     private String day;
     private String startTime;
     private String endTime;
 
-    public Availability(String id, String day, String startTime, String endTime)
+    public Availability(String day, String startTime, String endTime)
     {
-        this.id = id;
         this.day= day;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -29,6 +30,11 @@ public class Availability {
 
     public String getId() {
         return id;
+    }
+
+    @Override
+    public String toString(){
+        return day + ": " + this.startTime + " - " + this.endTime;
     }
 
     public void setDay(String day) {

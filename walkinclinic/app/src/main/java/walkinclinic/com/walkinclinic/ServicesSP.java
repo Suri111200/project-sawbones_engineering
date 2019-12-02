@@ -29,11 +29,8 @@ public class ServicesSP extends AppCompatActivity {
     DatabaseReference mDatabase;
     ListView listViewProducts;
     ListView listViewYourServices;
-
     List<Service> services;
-
     List<Service> yourServices;
-
     ServiceProvider user;
 
     @Override
@@ -73,7 +70,6 @@ public class ServicesSP extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance().getReference("Service");
 
-        // THE FOLLOWING GETS IT BUGGING OUT
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -81,7 +77,7 @@ public class ServicesSP extends AppCompatActivity {
 
                 for (DataSnapshot ds: dataSnapshot.getChildren())
                 {
-                    Service service = new Service(ds.child("id").getValue().toString(), ds.child("name").getValue().toString(), ds.child("role").getValue().toString());
+                    Service service = new Service(ds.child("id").getValue().toString(), ds.child("name").getValue().toString(), ds.child("role").getValue().toString(), ds.child("rate").getValue().toString());
                     services.add(service);
                 }
                 ServiceList servicesAdapter = new ServiceList(ServicesSP.this, services);
@@ -104,7 +100,7 @@ public class ServicesSP extends AppCompatActivity {
 
                 for (DataSnapshot ds: dataSnapshot.getChildren())
                 {
-                    Service service = new Service(ds.child("id").getValue().toString(), ds.child("name").getValue().toString(), ds.child("role").getValue().toString());
+                    Service service = new Service(ds.child("id").getValue().toString(), ds.child("name").getValue().toString(), ds.child("role").getValue().toString(), ds.child("rate").getValue().toString());
                     yourServices.add(service);
                 }
                 ServiceList servicesAdapter = new ServiceList(ServicesSP.this, yourServices);
@@ -120,14 +116,11 @@ public class ServicesSP extends AppCompatActivity {
 
     private void addService(Service service) {
 
-        for (int i = 0; i < yourServices.size(); i++)
-        {
-            if (yourServices.get(i).getId().equals(service.getId()))
-            {
+        for (int i = 0; i < yourServices.size(); i++){
+            if (yourServices.get(i).getId().equals(service.getId())){
                 Toast.makeText(ServicesSP.this, "Service already added", Toast.LENGTH_LONG).show();
                 return;
             }
-
         }
 
         mDatabase = FirebaseDatabase.getInstance().getReference();

@@ -11,10 +11,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light">
-        <activity android:name=".AddAvailabilities"></activity>
+        <activity android:name=".ViewAppointments"></activity>
+        <activity android:name=".UsersAdmin" />
+        <activity android:name=".ViewReviews" />
+        <activity android:name=".ReviewServiceProvider" />
+        <activity android:name=".CheckIn" />
+        <activity android:name=".AppointmentTimeSelect" />
+        <activity android:name=".BookAppointment" />
+        <activity android:name=".ServiceProviderInfo" />
+        <activity android:name=".AddAvailabilities" />
         <activity android:name=".Availabilities" />
         <activity android:name=".ServicesSP" />
-        <activity android:name=".PersonList"/>
+        <activity android:name=".PersonList" />
         <activity android:name=".ProfileServiceProvider" />
         <activity android:name=".ProfileAdmin" />
         <activity android:name=".ProfileBasic" />
@@ -23,8 +31,8 @@
         <activity android:name=".ServicesAdmin" />
         <activity android:name=".Welcome" />
         <activity android:name=".SignIn" />
-        <activity android:name=".SP_Search"/>
-        <activity android:name=".SP_List"/>
+        <activity android:name=".SP_Search" />
+        <activity android:name=".SP_List" />
         <activity android:name=".Register" />
         <activity android:name=".MainActivity">
             <intent-filter>

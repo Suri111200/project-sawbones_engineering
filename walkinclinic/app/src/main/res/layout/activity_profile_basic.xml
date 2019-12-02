@@ -40,11 +40,11 @@
             android:layout_marginTop="32dp"
             android:text="Search" />
 
-        <Button
-            android:id="@+id/appointmentB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Appointments" />
+<!--        <Button-->
+<!--            android:id="@+id/appointmentB"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Appointments" />-->
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
