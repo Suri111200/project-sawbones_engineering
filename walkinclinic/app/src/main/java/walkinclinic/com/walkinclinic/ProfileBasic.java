@@ -45,13 +45,13 @@ public class ProfileBasic extends AppCompatActivity {
             }
         });
 
-//        buttonToAppointments.setOnClickListener(new View.OnClickListener() {
-////            @Override
-////            public void onClick(View v) {
-////                //Toast.makeText(Welcome.this, user.getClass().getSimpleName(), Toast.LENGTH_LONG).show();
-////                toAppointments();
-////            }
-////        });
+        buttonToAppointments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(Welcome.this, user.getClass().getSimpleName(), Toast.LENGTH_LONG).show();
+                toAppointments();
+            }
+        });
 
     }
 
@@ -61,9 +61,9 @@ public class ProfileBasic extends AppCompatActivity {
         startActivity(toSearch);
     }
 
-//    public void toAppointments() {
-//        Intent toAppointments = new Intent(this, ViewAppointments.class);
-//        toAppointments.putExtra("Person", user);
-//        startActivity(toAppointments);
-//    }
+    public void toAppointments() {
+        Intent toAppointments = new Intent(this, ViewAppointments.class);
+        toAppointments.putExtra("Person", user);
+        startActivity(toAppointments);
+    }
 }

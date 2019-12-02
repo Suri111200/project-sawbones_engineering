@@ -51,18 +51,20 @@ public class ViewAppointments extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 appointments.clear();
-//                for (DataSnapshot ds: dataSnapshot.getChildren())
-//                {
-////                    title.setText(ds.child("-Lugu4H59GOY2tTgDM_f").getValue().toString());
-////                    for (DataSnapshot date : ds.getChildren()) {
+                for (DataSnapshot ds: dataSnapshot.getChildren())
+                {
+//                    title.setText(ds.child("-Lugu4H59GOY2tTgDM_f").getValue().toString());
+//                    for (DataSnapshot date : ds.getChildren()) {
 ////                        Patient patient = (Patient) date.child("patient").getValue();
 ////                        ServiceProvider sp = (ServiceProvider) date.child("serviceProvider").getValue();
 ////                        Appointment appointment = new Appointment(date.child("id").getValue().toString(), date.child("date").getValue().toString(), date.child("time").getValue().toString(), patient, sp);
 ////                        appointments.add(appointment);
-////                    }
-//                }
-//                AppointmentList reviewAdapter = new AppointmentList(ViewAppointments.this, appointments);
-//                listViewAppointments.setAdapter(reviewAdapter);
+//                    }
+
+
+                }
+                AppointmentList reviewAdapter = new AppointmentList(ViewAppointments.this, appointments);
+                listViewAppointments.setAdapter(reviewAdapter);
             }
 
             @Override
