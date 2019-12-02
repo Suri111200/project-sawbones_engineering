@@ -1,6 +1,5 @@
 package walkinclinic.com.walkinclinic;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 
@@ -8,7 +7,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
@@ -18,18 +16,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import org.w3c.dom.Text;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class Register extends AppCompatActivity {
@@ -37,6 +29,7 @@ public class Register extends AppCompatActivity {
     Button patient;
     Button admin;
     Button employee;
+    Button serviceProvider;
 
     String type = "not";
 
@@ -69,7 +62,7 @@ public class Register extends AppCompatActivity {
         emailB = findViewById(R.id.emailRegister);
         password1B = findViewById(R.id.passwordRegister);
         password2B = findViewById(R.id.password2Register);
-        nameB = findViewById(R.id.name);
+        nameB = findViewById(R.id.nameText);
 
         registerButton = (Button) findViewById(R.id.registerb);
         registerButton.setOnClickListener(new View.OnClickListener() {
@@ -127,6 +120,14 @@ public class Register extends AppCompatActivity {
             }
         });
 
+        serviceProvider = (Button) findViewById(R.id.serviceProviderB);
+        serviceProvider.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { changeType(v, "ServiceProvider");
+            }
+        });
+
+
         mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
@@ -144,32 +145,35 @@ public class Register extends AppCompatActivity {
         }
     }
 
-    public void  registerUser (String name, String email, String password)
-    {
-        Intent toWelcome = new Intent(this, Welcome.class);
+    public void  registerUser (String name, String email, String password) {
+
         String id = mDatabase.push().getKey();
         Person user = new Person("h", "h", "h", "h");
-        if (type.equals("Admin")) {
-//            user = new Admin(id, email, password, name);
-//            mDatabase.child("Person").child("Admin").child(id).setValue(user);
-            Toast.makeText(Register.this, "Admin account already created.", Toast.LENGTH_LONG).show();
+        if (type.equals("ServiceProvider")) {
+            Intent nextStep = new Intent(this, ServiceProviderRegister.class);
+            user = new ServiceProvider(id, email, password, name, "", "", "", "", false);
+            nextStep.putExtra("Person", user);
+            startActivity(nextStep);
+        } else {
+            Intent toWelcome = new Intent(this, Welcome.class);
+            if (type.equals("Admin")) {
+                //            user = new Admin(id, email, password, name);
+                //            mDatabase.child("Person").child("Admin").child(id).setValue(user);
+                Toast.makeText(Register.this, "Admin account already created.", Toast.LENGTH_LONG).show();
+            } else if (type.equals("Patient")) {
+                user = new Patient(id, email, password, name);
+                mDatabase.child("Person").child("Patient").child(id).setValue(user);
+                Toast.makeText(Register.this, "Patient account created", Toast.LENGTH_LONG).show();
+            } else {
+                user = new Employee(id, email, password, name);
+                mDatabase.child("Person").child("Employee").child(id).setValue(user);
+                Toast.makeText(Register.this, "Employee account created", Toast.LENGTH_LONG).show();
+            }
+            toWelcome.putExtra("Person", user);
+            startActivity(toWelcome);
         }
-        else if (type.equals("Patient"))
-        {
-            user = new Patient(id, email, password, name);
-            mDatabase.child("Person").child("Patient").child(id).setValue(user);
-            Toast.makeText(Register.this, "Patient account created", Toast.LENGTH_LONG).show();
-        }
-        else
-        {
-            user = new Employee(id, email, password, name);
-            mDatabase.child("Person").child("Employee").child(id).setValue(user);
-            Toast.makeText(Register.this, "Employee account created", Toast.LENGTH_LONG).show();
-        }
-
-        toWelcome.putExtra("Person", user);
-        startActivity(toWelcome);
     }
+
 
     public void changeType (View v, String type)
     {
@@ -179,21 +183,33 @@ public class Register extends AppCompatActivity {
         if (type.equals("Admin")) {
             patient.getBackground().clearColorFilter();
             employee.getBackground().clearColorFilter();
+            serviceProvider.getBackground().clearColorFilter();
             Toast.makeText(Register.this, "Admin account already created.", Toast.LENGTH_LONG).show();
             v.getBackground().clearColorFilter();
             this.type = "not";
+            registerButton.setText("Register");
         }
         else if (type.equals("Patient"))
         {
             employee.getBackground().clearColorFilter();
             admin.getBackground().clearColorFilter();
+            serviceProvider.getBackground().clearColorFilter();
+            registerButton.setText("Register");
         }
         else if (type.equals("Employee"))
         {
             patient.getBackground().clearColorFilter();
             admin.getBackground().clearColorFilter();
+            serviceProvider.getBackground().clearColorFilter();
+            registerButton.setText("Register");
         }
-
+        else if(type.equals("ServiceProvider"))
+        {
+            patient.getBackground().clearColorFilter();
+            admin.getBackground().clearColorFilter();
+            employee.getBackground().clearColorFilter();
+            registerButton.setText("Next");
+        }
 
     }
 
