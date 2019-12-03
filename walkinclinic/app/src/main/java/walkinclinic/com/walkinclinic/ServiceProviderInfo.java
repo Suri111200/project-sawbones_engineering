@@ -72,19 +72,36 @@ public class ServiceProviderInfo extends AppCompatActivity {
         bookB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent toBookAppointment = new Intent(listViewAvail.getContext(), BookAppointment.class);
+                Intent toBookAppointment = new Intent(getApplicationContext(), BookAppointment.class);
                 toBookAppointment.putExtra("Person", user);
                 toBookAppointment.putExtra("ServiceProvider", sp);
                 startActivity(toBookAppointment);
             }
         });
 
-//        checkInB.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
+        checkInB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDatabase = FirebaseDatabase.getInstance().getReference("Person").child("ServiceProvider").child(sp.getId()).child("CheckedIn");
+                mDatabase.child(user.getId()).setValue(user);
+
+                Intent toCheckIn = new Intent(getApplicationContext(), CheckIn.class);
+                toCheckIn.putExtra("Person", user);
+                toCheckIn.putExtra("ServiceProvider", sp);
+                startActivity(toCheckIn);
+            }
+        });
+
+        reviewB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent toReview = new Intent(getApplicationContext(), ViewReviews.class);
+                toReview.putExtra("Person", user);
+                toReview.putExtra("ServiceProvider", sp);
+                startActivity(toReview);
+            }
+        });
+        mDatabase = FirebaseDatabase.getInstance().getReference("Person").child("ServiceProvider").child(sp.getId()).child("Reviews");
 
         String name = "Name: " + sp.getName();
         String type = "Type: " + sp.getClass().getSimpleName();
@@ -142,8 +159,8 @@ public class ServiceProviderInfo extends AppCompatActivity {
                 availabilities.clear();
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    Availability Availability = new Availability(ds.child("id").getValue().toString(), ds.child("day").getValue().toString(), ds.child("startTime").getValue().toString(), ds.child("endTime").getValue().toString());
-                    availabilities.add(Availability);
+                    Availability availability = new Availability(ds.child("day").getValue().toString(), ds.child("startTime").getValue().toString(), ds.child("endTime").getValue().toString());
+                    availabilities.add(availability);
                 }
                 AvailabilityList AvailabilityAdapter = new AvailabilityList(ServiceProviderInfo.this, availabilities);
                 listViewAvail.setAdapter(AvailabilityAdapter);

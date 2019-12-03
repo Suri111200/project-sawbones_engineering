@@ -48,6 +48,7 @@ public class SP_Search extends AppCompatActivity {
     private ListView listViewServiceProviders;
     private SearchView searchView;
     private ArrayList<Service> services;
+    private ArrayList<Availability> availabilities;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +60,7 @@ public class SP_Search extends AppCompatActivity {
 
         Intent intent = getIntent();
         user = (Patient) intent.getSerializableExtra("Person");
-/*
+        /*
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         AppBarLayout appbar = findViewById(R.id.appbar);
 
@@ -103,7 +104,7 @@ public class SP_Search extends AppCompatActivity {
                             }
                             for(DataSnapshot availabilitySnapshot : ds.child("Availability").getChildren()){
                                 //Log.i("snaptest",serviceSnapshot.child("role").getValue().toString() + " " + serviceSnapshot.child("name").getValue().toString());
-                                provider.addAvailability(availabilitySnapshot.child("day").getValue().toString() + ": " + availabilitySnapshot.child("startTime").getValue().toString() + " - " + availabilitySnapshot.child("endTime").getValue().toString());
+                                provider.addAvailability(new Availability(availabilitySnapshot.child("day").getValue().toString(), availabilitySnapshot.child("startTime").getValue().toString(),availabilitySnapshot.child("endTime").getValue().toString()));
                             }
                             //provider.setServices(services);
                             providers.add(provider);
@@ -119,6 +120,7 @@ public class SP_Search extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {}
 
         });
+
 
         listViewServiceProviders.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -167,8 +169,8 @@ public class SP_Search extends AppCompatActivity {
                         if(s.getName().toLowerCase().contains(query.toLowerCase()))
                             hasService = true;
                     }
-                    for(String a : i.getAvailabilities()){
-                        if(a.toLowerCase().contains(query.toLowerCase()))
+                    for(Availability a : i.getAvailabilities()){
+                        if(a.toString().toLowerCase().contains(query.toLowerCase()))
                             hasAvailability = true;
                     }
                     if(i.getCompany().toLowerCase().contains(query.toLowerCase()) || i.getAddress().toLowerCase().contains(query.toLowerCase()) || hasService || hasAvailability) {  // i.getDescription().toLowerCase().contains(query.toLowerCase()
