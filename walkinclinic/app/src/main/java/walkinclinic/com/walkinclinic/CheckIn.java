@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,6 +41,7 @@ public class CheckIn extends AppCompatActivity {
     Date date;
 
     int checkins;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,14 +93,16 @@ public class CheckIn extends AppCompatActivity {
         });
 
         mDatabase = FirebaseDatabase.getInstance().getReference("Person").child("ServiceProvider").child(sp.getId()).child("CheckedIn");
-
+//        Toast.makeText(CheckIn.this, sp.getId(), Toast.LENGTH_LONG).show();
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 checkins = 0;
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    checkins++;
+                    checkins+=1;
+                    String waitTimeStr = checkins*15 + " minutes";
+                    waitTimeT.setText(waitTimeStr);
                 }
             }
 
@@ -112,10 +116,15 @@ public class CheckIn extends AppCompatActivity {
         String welcome = user.getName()+ ", you are Checked In!";
         title.setText(welcome);
 
+
         waitTimeT = findViewById(R.id.waitTimeT);
-        waitTimeT.setText("XX:XX");
+
+        //waitTimeT.setText("XX:XX");
     }
 
+    public void incrementWaitTime(){
+        checkins++;
+    }
 //    private String calculateWaitTime ()
 //    {
 //        SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm");
