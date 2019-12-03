@@ -96,7 +96,8 @@ public class CheckIn extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 checkins = 0;
-
+                //TODO: note: check-ins (probably) wont change because its in a ValueEventListener for Firebase, which is asynchronous. Works on a different thread. '
+                // Delete this if I'm wrong. Just an observation.
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     checkins++;
                 }

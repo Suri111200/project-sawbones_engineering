@@ -38,7 +38,6 @@ public class BookAppointment extends AppCompatActivity {
     int count;
     ArrayList<String> availDays;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
