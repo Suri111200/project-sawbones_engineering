@@ -139,4 +139,6 @@ public class SP_List extends ArrayAdapter<ServiceProvider> {
     public int getCount(){
         return providers.size();
     }
+
+    public List<ServiceProvider> getProviders(){ return this.providers; }
 }

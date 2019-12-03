@@ -57,9 +57,9 @@ public class SP_Search extends AppCompatActivity {
 
         services = new ArrayList<>();
 
-
         Intent intent = getIntent();
         user = (Patient) intent.getSerializableExtra("Person");
+
         /*
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         AppBarLayout appbar = findViewById(R.id.appbar);
@@ -73,7 +73,6 @@ public class SP_Search extends AppCompatActivity {
         TabLayout tabs = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         */
-
 
         providers = new ArrayList<>();
         services = new ArrayList();
@@ -106,7 +105,6 @@ public class SP_Search extends AppCompatActivity {
                                 //Log.i("snaptest",serviceSnapshot.child("role").getValue().toString() + " " + serviceSnapshot.child("name").getValue().toString());
                                 provider.addAvailability(new Availability(availabilitySnapshot.child("day").getValue().toString(), availabilitySnapshot.child("startTime").getValue().toString(),availabilitySnapshot.child("endTime").getValue().toString()));
                             }
-                            //provider.setServices(services);
                             providers.add(provider);
                         }
                     }
@@ -118,9 +116,7 @@ public class SP_Search extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {}
-
         });
-
 
         listViewServiceProviders.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -147,7 +143,6 @@ public class SP_Search extends AppCompatActivity {
         searchView.setQueryHint("Search clinics");
         searchView.clearFocus();
         searchView.setMaxWidth(Integer.MAX_VALUE);
-
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

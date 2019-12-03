@@ -30,4 +30,8 @@ public class PersonList extends ArrayAdapter<Person> {
         textViewName.setText(person.getClass().getSimpleName() + ": " + person.getName());
         return listViewItem;
     }
+
+    public List<Person> getUsers(){
+        return this.users;
+    }
 }
