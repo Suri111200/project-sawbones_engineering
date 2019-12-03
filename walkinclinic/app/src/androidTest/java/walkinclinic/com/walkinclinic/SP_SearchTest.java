@@ -1,9 +1,12 @@
 package walkinclinic.com.walkinclinic;
 
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
+import androidx.core.view.MenuItemCompat;
 import androidx.test.annotation.UiThreadTest;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
@@ -28,6 +31,9 @@ import static org.junit.Assert.*;
 @RunWith(AndroidJUnit4.class)
 public class SP_SearchTest {
 
+    List<ServiceProvider> providers;
+    SP_List providerAdapter;
+
     @Rule
     public ActivityTestRule<SP_Search> myActivityTestRule = new ActivityTestRule(SP_Search.class);
     private SP_Search myActivity = null;
@@ -44,13 +50,13 @@ public class SP_SearchTest {
     @Test
     @UiThreadTest
     public void testLaunch() {
-
+        providers= new ArrayList<>();
         // Tests that the PersonList adapter retrieves the users correctly
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Person");
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<ServiceProvider> providers= new ArrayList<>();
+
                 providers.clear();
                 for (DataSnapshot dSnapshot : dataSnapshot.getChildren()) {
                     for (DataSnapshot ds : dSnapshot.getChildren()) {
@@ -89,13 +95,181 @@ public class SP_SearchTest {
                     assertEquals(providers.get(i).getPhoneNumber(),p.getPhoneNumber());
                     i++;
                 }
+
+                //Runs a query "Test", filters the service providers and verifies that the ListView is updated correctly
+                //This query checks both address and name
+                String query = "Test";
+
+                List<ServiceProvider> results = new ArrayList<>();
+                Boolean hasService;
+                Boolean hasAvailability;
+
+                for(ServiceProvider sp : providers){
+                    hasService = false;
+                    hasAvailability = false;
+                    //Queries company name, address, and the services of the company
+                    for(Service s : sp.getServices()){
+                        Log.i("snaptest", "Service " + s.getName() + " belongs to provider: " + sp.getCompany());
+                        if(s.getName().toLowerCase().contains(query.toLowerCase()))
+                            hasService = true;
+                    }
+                    for(Availability a : sp.getAvailabilities()){
+                        if(a.toString().toLowerCase().contains(query.toLowerCase()))
+                            hasAvailability = true;
+                    }
+                    if(sp.getCompany().toLowerCase().contains(query.toLowerCase()) || sp.getAddress().toLowerCase().contains(query.toLowerCase()) || hasService || hasAvailability) {  // i.getDescription().toLowerCase().contains(query.toLowerCase()
+                        results.add(sp);
+                    }
+                }
+
+                listViewServiceProviders = myActivity.findViewById(R.id.providerList);
+                providerAdapter = (SP_List)listViewServiceProviders.getAdapter();
+                ((SP_List)listViewServiceProviders.getAdapter()).update(results, query);
+
+                i = 0;
+                for(ServiceProvider p : providerAdapter.getProviders()){
+                    assertEquals(results.get(i).getName(),p.getName());
+                    assertEquals(results.get(i).getEmail(), p.getEmail());
+                    assertEquals(results.get(i).getId(),p.getId());
+                    assertEquals(results.get(i).getCompany(),p.getCompany());
+                    assertEquals(results.get(i).getDescription(),p.getDescription());
+                    assertEquals(results.get(i).getPhoneNumber(),p.getPhoneNumber());
+                    i++;
+                }
+
+                //Queries services
+                query = "Blood";
+                results = new ArrayList<>();
+
+                for(ServiceProvider sp : providers){
+                    hasService = false;
+                    hasAvailability = false;
+                    //Queries company name, address, and the services of the company
+                    for(Service s : sp.getServices()){
+                        if(s.getName().toLowerCase().contains(query.toLowerCase()))
+                            hasService = true;
+                    }
+                    for(Availability a : sp.getAvailabilities()){
+                        if(a.toString().toLowerCase().contains(query.toLowerCase()))
+                            hasAvailability = true;
+                    }
+                    if(sp.getCompany().toLowerCase().contains(query.toLowerCase()) || sp.getAddress().toLowerCase().contains(query.toLowerCase()) || hasService || hasAvailability) {  // i.getDescription().toLowerCase().contains(query.toLowerCase()
+                        results.add(sp);
+                    }
+                }
+                //Service provider sp, our test service provider (?), has BloodWork and therefore should be 1
+                assertTrue(results.size()>=1);
+
+                listViewServiceProviders = myActivity.findViewById(R.id.providerList);
+                providerAdapter = (SP_List)listViewServiceProviders.getAdapter();
+                ((SP_List)listViewServiceProviders.getAdapter()).update(results, query);
+
+                //verifies updated adapter
+                i = 0;
+                for(ServiceProvider p : providerAdapter.getProviders()){
+                    assertEquals(results.get(i).getName(),p.getName());
+                    assertEquals(results.get(i).getEmail(), p.getEmail());
+                    assertEquals(results.get(i).getId(),p.getId());
+                    assertEquals(results.get(i).getCompany(),p.getCompany());
+                    assertEquals(results.get(i).getDescription(),p.getDescription());
+                    assertEquals(results.get(i).getPhoneNumber(),p.getPhoneNumber());
+                    i++;
+                }
+
+                //Queries availability
+                query = "monday";
+                results = new ArrayList<>();
+
+                for(ServiceProvider sp : providers){
+                    hasService = false;
+                    hasAvailability = false;
+                    //Queries company name, address, and the services of the company
+                    for(Service s : sp.getServices()){
+                        if(s.getName().toLowerCase().contains(query.toLowerCase()))
+                            hasService = true;
+                    }
+                    for(Availability a : sp.getAvailabilities()){
+                        if(a.toString().toLowerCase().contains(query.toLowerCase()))
+                            hasAvailability = true;
+                    }
+                    if(sp.getCompany().toLowerCase().contains(query.toLowerCase()) || sp.getAddress().toLowerCase().contains(query.toLowerCase()) || hasService || hasAvailability) {  // i.getDescription().toLowerCase().contains(query.toLowerCase()
+                        results.add(sp);
+                    }
+                }
+                //Service provider sp, our test service provider (?), has an available time monday and therefore should be at least 1
+                assertTrue(results.size()>=1);
+
+                listViewServiceProviders = myActivity.findViewById(R.id.providerList);
+                providerAdapter = (SP_List)listViewServiceProviders.getAdapter();
+                ((SP_List)listViewServiceProviders.getAdapter()).update(results, query);
+
+                //verifies updated adapter
+                i = 0;
+                for(ServiceProvider p : providerAdapter.getProviders()){
+                    assertEquals(results.get(i).getName(),p.getName());
+                    assertEquals(results.get(i).getEmail(), p.getEmail());
+                    assertEquals(results.get(i).getId(),p.getId());
+                    assertEquals(results.get(i).getCompany(),p.getCompany());
+                    assertEquals(results.get(i).getDescription(),p.getDescription());
+                    assertEquals(results.get(i).getPhoneNumber(),p.getPhoneNumber());
+                    i++;
+                }
+
+                //And finally, enters gibberish and should display nothing
+                query = "asdfasdf234234234asdfasdf";
+                results = new ArrayList<>();
+
+                for(ServiceProvider sp : providers){
+                    hasService = false;
+                    hasAvailability = false;
+                    //Queries company name, address, and the services of the company
+                    for(Service s : sp.getServices()){
+                        if(s.getName().toLowerCase().contains(query.toLowerCase()))
+                            hasService = true;
+                    }
+                    for(Availability a : sp.getAvailabilities()){
+                        if(a.toString().toLowerCase().contains(query.toLowerCase()))
+                            hasAvailability = true;
+                    }
+                    if(sp.getCompany().toLowerCase().contains(query.toLowerCase()) || sp.getAddress().toLowerCase().contains(query.toLowerCase()) || hasService || hasAvailability) {  // i.getDescription().toLowerCase().contains(query.toLowerCase()
+                        results.add(sp);
+                    }
+                }
+                //Service provider sp, our test service provider (?), has an available time monday and therefore should be at least 1
+                assertTrue(results.size() == 0);
+
+                listViewServiceProviders = myActivity.findViewById(R.id.providerList);
+                providerAdapter = (SP_List)listViewServiceProviders.getAdapter();
+                ((SP_List)listViewServiceProviders.getAdapter()).update(results, query);
+
+                //verifies updated adapter
+                i = 0;
+                for(ServiceProvider p : providerAdapter.getProviders()){
+                    assertEquals(results.get(i).getName(),p.getName());
+                    assertEquals(results.get(i).getEmail(), p.getEmail());
+                    assertEquals(results.get(i).getId(),p.getId());
+                    assertEquals(results.get(i).getCompany(),p.getCompany());
+                    assertEquals(results.get(i).getDescription(),p.getDescription());
+                    assertEquals(results.get(i).getPhoneNumber(),p.getPhoneNumber());
+                    i++;
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {}
 
         });
-
+/*
+        int i = 0;
+        for(ServiceProvider p : providerAdapter.getProviders()){
+            assertEquals(results.get(i).getName(),p.getName());
+            assertEquals(results.get(i).getEmail(), p.getEmail());
+            assertEquals(results.get(i).getId(),p.getId());
+            assertEquals(results.get(i).getCompany(),p.getCompany());
+            assertEquals(results.get(i).getDescription(),p.getDescription());
+            assertEquals(results.get(i).getPhoneNumber(),p.getPhoneNumber());
+            i++;
+        }*/
 
     }
 }
