@@ -129,6 +129,7 @@ public class CheckIn extends AppCompatActivity {
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     checkins+=1;
+                    waitTime = calculateWaitTime(checkins, appointments);
                     String waitTimeStr = waitTime + " minutes";
                     waitTimeT.setText(waitTimeStr);
                 }

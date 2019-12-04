@@ -65,6 +65,12 @@ public class ReviewServiceProvider extends AppCompatActivity {
 
             Toast.makeText(this, "Thanks for your feedback!", Toast.LENGTH_LONG).show();
 
+            dR = FirebaseDatabase.getInstance().getReference("Person").child("ServiceProvider").child(sp.getId()).child("CheckedIn").child(user.getId());
+
+            dR.removeValue();
+            Toast.makeText(getApplicationContext(), "Checked out", Toast.LENGTH_LONG).show();
+
+
             Intent toProfileClass = new Intent(getApplicationContext(), ProfileBasic.class);
             toProfileClass.putExtra("Person", user);
             startActivity(toProfileClass);

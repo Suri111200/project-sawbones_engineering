@@ -17,7 +17,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ViewAppointments extends AppCompatActivity {
@@ -27,6 +29,7 @@ public class ViewAppointments extends AppCompatActivity {
 
     List<Appointment> appointments;
     Patient patient;
+    Date date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +45,12 @@ public class ViewAppointments extends AppCompatActivity {
         Intent intent = getIntent();
         patient = (Patient) intent.getSerializableExtra("Person");
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("Person").child("Patient").child(patient.getId()).child("Appointments");
+        date = new Date();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+        String currentDate = sdf.format(date);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference("Person").child("ServiceProvider").child(patient.getId()).child("Appointments").child(currentDate);
 
         Toast.makeText(ViewAppointments.this, patient.getId(), Toast.LENGTH_LONG).show();
 
@@ -51,17 +59,12 @@ public class ViewAppointments extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 appointments.clear();
-                for (DataSnapshot ds: dataSnapshot.getChildren())
-                {
-//                    title.setText(ds.child("-Lugu4H59GOY2tTgDM_f").getValue().toString());
-//                    for (DataSnapshot date : ds.getChildren()) {
-////                        Patient patient = (Patient) date.child("patient").getValue();
-////                        ServiceProvider sp = (ServiceProvider) date.child("serviceProvider").getValue();
-////                        Appointment appointment = new Appointment(date.child("id").getValue().toString(), date.child("date").getValue().toString(), date.child("time").getValue().toString(), patient, sp);
-////                        appointments.add(appointment);
-//                    }
 
-
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Patient patient = (Patient) ds.child("patient").getValue();
+                    ServiceProvider sp = (ServiceProvider) ds.child("serviceProvider").getValue();
+                    Appointment appointment = new Appointment(ds.child("id").getValue().toString(), ds.child("date").getValue().toString(), ds.child("time").getValue().toString(), patient, sp);
+                    appointments.add(appointment);
                 }
                 AppointmentList reviewAdapter = new AppointmentList(ViewAppointments.this, appointments);
                 listViewAppointments.setAdapter(reviewAdapter);
