@@ -68,7 +68,6 @@ public class ReviewServiceProvider extends AppCompatActivity {
             Intent toProfileClass = new Intent(getApplicationContext(), ProfileBasic.class);
             toProfileClass.putExtra("Person", user);
             startActivity(toProfileClass);
-
         }
         else if (TextUtils.isEmpty(rating) && TextUtils.isEmpty(review)){
             errorMessage.setText("Please make sure both fields are filled");
