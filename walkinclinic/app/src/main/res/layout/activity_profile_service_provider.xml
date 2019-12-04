@@ -7,117 +7,144 @@
     android:background="@drawable/background4"
     tools:context=".ProfileServiceProvider">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <TextView
+        android:id="@+id/licensedSPText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emailSPText"
+        app:layout_constraintVertical_bias="0.0" />
 
-        <TextView
-            android:id="@+id/nameSPText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="290dp"
-            android:fontFamily="@font/clanpro_news"
-            android:text="TextView"
-            android:textColor="@color/common_google_signin_btn_text_dark_focused"
-            android:textSize="28dp"/>
+    <TextView
+        android:id="@+id/phoneSPText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/companySPText"
+        app:layout_constraintVertical_bias="0.0" />
 
-        <TextView
-            android:id="@+id/typeSPText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginLeft="33dp"
-            android:text="TextView"
-            android:textColor="@color/common_google_signin_btn_text_dark_focused" />
+    <TextView
+        android:id="@+id/addressSPText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.099"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneSPText"
+        app:layout_constraintVertical_bias="0.0" />
 
-        <TextView
-            android:id="@+id/descSPText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="33dp"
-            android:text="TextView"
-            android:textColor="@color/common_google_signin_btn_text_dark_focused" />
+    <TextView
+        android:id="@+id/emailSPText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addressSPText"
+        app:layout_constraintVertical_bias="0.0" />
 
-        <TextView
-            android:id="@+id/companySPText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="33dp"
-            android:text="TextView"
-            android:textColor="@color/common_google_signin_btn_text_dark_focused" />
+    <TextView
+        android:id="@+id/typeSPText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        app:layout_constraintBottom_toTopOf="@+id/availSPB"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameSPText"
+        app:layout_constraintVertical_bias="0.0" />
 
-        <TextView
-            android:id="@+id/phoneSPText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="33dp"
-            android:text="TextView"
-            android:textColor="@color/common_google_signin_btn_text_dark_focused" />
+    <TextView
+        android:id="@+id/companySPText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        app:layout_constraintBottom_toTopOf="@+id/availSPB"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.099"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descSPText"
+        app:layout_constraintVertical_bias="0.0" />
 
-        <TextView
-            android:id="@+id/addressSPText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="33dp"
-            android:text="TextView"
-            android:textColor="@color/common_google_signin_btn_text_dark_focused" />
+    <TextView
+        android:id="@+id/nameSPText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/clanpro_news"
+        android:text="TextView"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="28dp"
+        app:layout_constraintBottom_toTopOf="@+id/servicesSPB"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.449" />
 
-        <TextView
-            android:id="@+id/emailSPText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="33dp"
-            android:text="TextView"
-            android:textColor="@color/common_google_signin_btn_text_dark_focused" />
+    <TextView
+        android:id="@+id/descSPText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        app:layout_constraintBottom_toTopOf="@+id/availSPB"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/typeSPText"
+        app:layout_constraintVertical_bias="0.0" />
 
-        <TextView
-            android:id="@+id/licensedSPText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="33dp"
-            android:layout_marginTop="16dp"
-            android:text="TextView"
-            android:textColor="@color/common_google_signin_btn_text_dark_focused" />
+    <Button
+        android:id="@+id/servicesSPB"
+        android:layout_width="145dp"
+        android:layout_height="44dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/button_border"
+        android:text="Services"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.157"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
-            android:id="@+id/availSPB"
-            android:layout_width="147dp"
-            android:layout_height="43dp"
-            android:background="@drawable/button_border2"
-            android:textColor="#FFFFFF"
-            android:textColorHighlight="#00F8F5F5"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.844"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.954"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="90dp"
-            android:text="Avalibility"/>
-
-        <Button
-            android:id="@+id/servicesSPB"
-            android:layout_width="145dp"
-            android:layout_height="44dp"
-            android:background="@drawable/button_border"
-            android:textColor="#000000"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.139"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.956"
-            android:layout_marginLeft="230dp"
-            android:layout_marginTop="-44dp"
-            android:text="Services"/>
-    </LinearLayout>
+    <Button
+        android:id="@+id/availSPB"
+        android:layout_width="147dp"
+        android:layout_height="43dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/button_border2"
+        android:text="Avalibility"
+        android:textColor="#FFFFFF"
+        android:textColorHighlight="#00F8F5F5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.829"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
