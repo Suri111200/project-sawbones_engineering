@@ -34,13 +34,17 @@ public class CheckIn extends AppCompatActivity {
     ServiceProvider sp;
     Button review;
 
-    List<Appointment> appointments;
+    //List<Appointment> appointments;
 
     DatabaseReference mDatabase;
 
     Date date;
 
+    int waitTime;
     int checkins;
+    int appointments;
+
+    //List<Patient> checkIns;
 
 
     @Override
@@ -48,13 +52,16 @@ public class CheckIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_in);
 
-        appointments = new ArrayList<>();
+        //appointments = new ArrayList<>();
+        //checkIns = new ArrayList<>();
 
         Intent intent = getIntent();
         user = (Patient) intent.getSerializableExtra("Person");
         sp = (ServiceProvider) intent.getSerializableExtra("ServiceProvider");
 
         review = findViewById(R.id.finishB);
+        waitTimeT = findViewById(R.id.waitTimeT);
+
 
         review.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,17 +80,38 @@ public class CheckIn extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance().getReference("Person").child("ServiceProvider").child(sp.getId()).child("Appointments").child(currentDate);
 
+//        mDatabase.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                appointments.clear();
+//
+//                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+//                    Patient patient = (Patient) ds.child("patient").getValue();
+//                    ServiceProvider sp = (ServiceProvider) ds.child("serviceProvider").getValue();
+//                    Appointment appointment = new Appointment(ds.child("id").getValue().toString(), ds.child("date").getValue().toString(), ds.child("time").getValue().toString(), patient, sp);
+//                    appointments.add(appointment);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                appointments.clear();
+                appointments = 0;
 
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    Patient patient = (Patient) ds.child("patient").getValue();
-                    ServiceProvider sp = (ServiceProvider) ds.child("serviceProvider").getValue();
-                    Appointment appointment = new Appointment(ds.child("id").getValue().toString(), ds.child("date").getValue().toString(), ds.child("time").getValue().toString(), patient, sp);
-                    appointments.add(appointment);
+                for (DataSnapshot ds : dataSnapshot.getChildren())
+                {
+                    appointments += 1;
+                    waitTime = calculateWaitTime(checkins, appointments);
+                    String waitTimeStr = waitTime + " minutes";
+                    waitTimeT.setText(waitTimeStr);
                 }
+
             }
 
             @Override
@@ -98,11 +126,10 @@ public class CheckIn extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 checkins = 0;
-                //TODO: note: check-ins (probably) wont change because its in a ValueEventListener for Firebase, which is asynchronous. Works on a different thread. '
-                // Delete this if I'm wrong. Just an observation.
+
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     checkins+=1;
-                    String waitTimeStr = checkins*15 + " minutes";
+                    String waitTimeStr = waitTime + " minutes";
                     waitTimeT.setText(waitTimeStr);
                 }
             }
@@ -116,34 +143,11 @@ public class CheckIn extends AppCompatActivity {
         title = findViewById(R.id.title);
         String welcome = user.getName()+ ", you are Checked In!";
         title.setText(welcome);
-
-
-        waitTimeT = findViewById(R.id.waitTimeT);
-
-        //waitTimeT.setText("XX:XX");
     }
 
-    public void incrementWaitTime(){
-        checkins++;
+    private int calculateWaitTime (int checkins, int appointments)
+    {
+        waitTime = checkins * 15 + appointments * 30;
+        return waitTime;
     }
-//    private String calculateWaitTime ()
-//    {
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm");
-//        Date currentTime = Calendar.getInstance().getTime();
-//        SimpleDateFormat simpledateformat = new SimpleDateFormat("hh:mm");
-//        Date dateD = new Date(year, month, dayOfMonth-1);
-//        Date waitTime = Calendar.getInstance().getTime();
-//        boolean appointmentPresent;
-//        for (int i = 0; i < checkins; i++)
-//        {
-//            appointmentPresent = false;
-//            for (Appointment a : appointments)
-//            {
-//                SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm");
-//                Date appointmentTime = dateFormat.parse(a.getTime());
-//                if ()
-//            }
-//        }
-//
-//    }
 }
