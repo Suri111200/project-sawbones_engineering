@@ -5,10 +5,10 @@ School of Engineering University of Ottawa
 **Course Coordinator**:  Professor Forward
 
 Group Member's:
-Soorya Saravanapavan
-Hrithik Shah
-Dylan Boyling
-Sultan Oloyede
+Soorya Saravanapavan, 300065226
+Hrithik Shah, 300069290
+Dylan Boyling, 7889895
+Sultan Oloyede, 300076997
 
 
 **Submission Date**: December 4, 2019
