@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/textViewName"
+        android:textSize="22sp"
+        android:layout_marginBottom="2dp"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:text=""
+        android:paddingTop="5dp"
+/>
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/textViewAddress"
+        android:textSize="15sp"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:text=""/>
+
+    <TextView
+        android:id="@+id/textViewDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="This clinic has no services listed"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:textSize="15sp"
+        android:text=""
+         />
+
+    <TextView
+        android:id="@+id/textViewAvailability"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:text=""
+        android:textSize="15sp"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:hint="This clinic has no availability listed" />
+</LinearLayout>

@@ -1,5 +1,8 @@
 package walkinclinic.com.walkinclinic;
 
+import android.provider.ContactsContract;
+import android.util.Log;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,6 +11,12 @@ import java.util.Map;
 
 import androidx.annotation.NonNull;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class  ServiceProvider extends Person implements Serializable {
 
     String address; //mandatory
@@ -15,6 +24,8 @@ public class  ServiceProvider extends Person implements Serializable {
     String company; //mandatory
     String description;
     boolean licensed;
+    ArrayList<Service> services;
+    ArrayList<Availability> availabilities;
 
     public ServiceProvider (String id, String email, String password, String name, String address, String phoneNumber, String company, String description, boolean licensed)
     {
@@ -24,6 +35,9 @@ public class  ServiceProvider extends Person implements Serializable {
         this.company = company;
         this.description = description;
         this.licensed = licensed;
+        services = new ArrayList<>();
+        availabilities = new ArrayList<>();
+
     }
 
     public String getAddress() {
@@ -46,6 +60,18 @@ public class  ServiceProvider extends Person implements Serializable {
         return phoneNumber;
     }
 
+    public ArrayList<Service> getServices(){ return services; }
+
+    public ArrayList<Availability> getAvailabilities(){ return availabilities; }
+
+    public void addService(Service service){
+        services.add(service);
+    }
+
+    public void addAvailability(Availability availability){
+        availabilities.add(availability);
+    }
+
     public void setAddress(String address) {
         this.address = address;
     }
@@ -64,5 +90,13 @@ public class  ServiceProvider extends Person implements Serializable {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public void setServices(ArrayList<Service> services){
+        this.services = services;
+    }
+
+    public void setAvailabilities(ArrayList<Availability> availabilities){
+        this.availabilities = availabilities;
     }
 }
